@@ -22,9 +22,8 @@ ServicioGrupo extends Servicio {
     private static final String buscarGrupo = "{? = call buscarGrupo(?)}";
     private static final String modificarGrupo = "{call modificarGrupo(?,?,?,?,?, ?,?)}";
     private static final String eliminarGrupo = "{call eliminarGrupo(?)}";
-    private static final String gruposPorProfesor =
-            "SELECT idGrupo, idCiclo, idCurso, numGrupo, horario, idProfesor FROM grupo " +
-            "WHERE idProfesor = ? AND idCiclo = ?";
+    private static final String listarGrupoPorProfesor =
+            "{? = call listarGrupoPorProfesor(?, ?)}";
 
     public ServicioGrupo() {
     }
@@ -117,12 +116,14 @@ ServicioGrupo extends Servicio {
 
         ArrayList<Grupo> lista = new ArrayList<>();
         ResultSet rs = null;
-        java.sql.PreparedStatement pstmt = null;
+        CallableStatement pstmt = null;
         try {
-            pstmt = this.conexion.prepareStatement(gruposPorProfesor);
-            pstmt.setString(1, cedula);
+            pstmt = this.conexion.prepareCall(listarGrupoPorProfesor);
+            pstmt.registerOutParameter(1, -10);
             pstmt.setInt(2, idCiclo);
-            rs = pstmt.executeQuery();
+            pstmt.setString(3, cedula);
+            pstmt.execute();
+            rs = (ResultSet) pstmt.getObject(1);
             while (rs.next()) {
                 Grupo grupo = new Grupo(
                         rs.getInt("idGrupo"),

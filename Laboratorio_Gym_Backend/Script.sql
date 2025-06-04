@@ -677,6 +677,22 @@ BEGIN
 END;
 /
 
+CREATE OR REPLACE FUNCTION listarGrupoPorProfesor(
+    p_idCiclo IN grupo.idCiclo%TYPE,
+    p_cedula  IN grupo.idProfesor%TYPE
+) RETURN types.ref_cursor
+AS
+    grupo_cursor types.ref_cursor;
+BEGIN
+    OPEN grupo_cursor FOR
+       SELECT idGrupo, idCiclo, idCurso, numGrupo, horario, idProfesor
+       FROM grupo
+       WHERE idProfesor = p_cedula
+         AND idCiclo = p_idCiclo;
+    RETURN grupo_cursor;
+END;
+/
+
 --TABLA,  PROCEDIMIENTOS FUNCIONE MATRICULA
 CREATE TABLE matricula (
     idMatricula NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
