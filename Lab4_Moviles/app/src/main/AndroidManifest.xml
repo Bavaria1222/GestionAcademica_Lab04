@@ -152,6 +152,12 @@
             android:exported="false"
             android:label="Editar Usuario" />
 
+        <activity
+            android:name=".activity.notaActivity.RegistrarNotaActivity"
+            android:parentActivityName=".activity.MenuActivity"
+            android:exported="false"
+            android:label="Registrar Nota" />
+
 
     </application>
 </manifest>

@@ -20,4 +20,7 @@ interface MatriculaApi {
 
     @GET("matriculas/alumno/{cedula}")
     fun listarPorAlumno(@Path("cedula") cedula: String): Call<List<Matricula>>
+
+    @GET("matriculas/grupo/{idGrupo}")
+    fun listarPorGrupo(@Path("idGrupo") idGrupo: Int): Call<List<Matricula>>
 }

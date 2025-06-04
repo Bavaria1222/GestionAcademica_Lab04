@@ -16,5 +16,11 @@ interface GrupoApi {
 
     @DELETE("grupos/{id}")
     fun eliminar(@Path("id") id: Int): Call<Void>
+
+    @GET("grupos/profesor/{cedula}/ciclo/{idCiclo}")
+    fun listarPorProfesor(
+        @Path("cedula") cedula: String,
+        @Path("idCiclo") idCiclo: Int
+    ): Call<List<Grupo>>
 }
 
