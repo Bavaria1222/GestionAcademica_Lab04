@@ -895,6 +895,24 @@ VALUES (
     90
 );
 
+-- Grupo extra para pruebas en ciclo 1
+INSERT INTO grupo (idCiclo, idCurso, numGrupo, horario, idProfesor)
+VALUES (
+    1,
+    (SELECT idcurso FROM curso WHERE codigo = 'ADM101'),
+    3,
+    'Viernes 09:00-11:00',
+    'P002'
+);
+
+-- Matrícula sin nota inicial
+INSERT INTO matricula (cedulaAlumno, idGrupo, nota)
+VALUES (
+    'S002',
+    (SELECT idGrupo FROM grupo WHERE idCurso = (SELECT idcurso FROM curso WHERE codigo = 'ADM101') AND numGrupo = 3 AND idProfesor = 'P002'),
+    NULL
+);
+
 COMMIT;
 
 

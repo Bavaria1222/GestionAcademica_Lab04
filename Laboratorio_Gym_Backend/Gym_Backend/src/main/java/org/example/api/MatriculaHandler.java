@@ -43,6 +43,14 @@ public class MatriculaHandler implements HttpHandler {
                         } catch (NoDataException nd) {
                             sendJson(ex, 200, "[]");
                         }
+                    } else if (parts.length == 5 && "grupo".equalsIgnoreCase(parts[3]) && isNumeric(parts[4])) {
+                        int idGrupo = Integer.parseInt(parts[4]);
+                        try {
+                            Collection<Matricula> lista = control.listarMatriculaGrupo(idGrupo);
+                            sendJson(ex, 200, gson.toJson(lista));
+                        } catch (NoDataException nd) {
+                            sendJson(ex, 200, "[]");
+                        }
                     } else if (parts.length == 4 && isNumeric(parts[3])) {
                         int id = Integer.parseInt(parts[3]);
                         Matricula matricula = control.buscarMatricula(id);

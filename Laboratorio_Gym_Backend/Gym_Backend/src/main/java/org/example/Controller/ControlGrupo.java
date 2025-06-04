@@ -25,6 +25,10 @@ public class ControlGrupo {
         return servicioGrupo.listarGrupo();
     }
 
+    public Collection<Grupo> listarGrupoProfesor(int idCiclo, String cedula) throws GlobalException, NoDataException {
+        return servicioGrupo.listarGrupoProfesor(idCiclo, cedula);
+    }
+
     // Busca un grupo por id
     public Grupo buscarGrupo(int id) throws GlobalException, NoDataException {
         return servicioGrupo.buscarGrupo(id);
