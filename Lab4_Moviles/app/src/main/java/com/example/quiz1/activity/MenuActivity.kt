@@ -42,7 +42,9 @@ class MenuActivity : AppCompatActivity() {
 
         val prefs = getSharedPreferences("datos_usuario", MODE_PRIVATE)
         val cedula = prefs.getString("cedula", "")
-        val rol = prefs.getString("rol", "")
+        // El rol puede venir con espacios o en minúsculas.
+        // Lo normalizamos a mayúsculas para evitar que el menú quede vacío.
+        val rol = prefs.getString("rol", "")?.trim()?.uppercase()
         findViewById<TextView>(R.id.tvBienvenida).text = "Bienvenido, $cedula"
 
         // Configurar botón de cerrar sesión
