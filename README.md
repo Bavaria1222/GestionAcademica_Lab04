@@ -18,7 +18,7 @@ aplicación Android (carpeta `Lab4_Moviles`).
    ./gradlew run
    ```
 
-   Esto iniciará el servidor en `http://localhost:8000`.
+   Esto iniciará el servidor en `http://localhost:8080`.
 3. Compile la aplicación Android ubicada en `Lab4_Moviles` utilizando Android
    Studio.  Al ingresar como `S001` o `S002` podrá visualizar el historial de
    matrículas.  Si ingresa como profesor (`P001` o `P002`) se mostrará la lista

@@ -8,4 +8,4 @@ de prueba.  Puede ejecutarse utilizando la tarea `run` de Gradle:
 ./gradlew run
 ```
 
-Por defecto el servidor se inicia en `http://localhost:8000`.
+Por defecto el servidor se inicia en `http://localhost:8080`.
