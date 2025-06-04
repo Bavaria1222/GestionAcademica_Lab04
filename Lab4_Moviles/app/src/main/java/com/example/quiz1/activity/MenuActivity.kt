@@ -97,7 +97,9 @@ class MenuActivity : AppCompatActivity() {
             )
             "MATRICULADOR" -> listOf("Matrículas" to MatriculaFragment())
             "PROFESOR" -> emptyList()
-            "ALUMNO" -> emptyList()
+            "ALUMNO" -> listOf(
+                "Historial" to HistorialFragment()
+            )
             else -> emptyList()
         }
     }

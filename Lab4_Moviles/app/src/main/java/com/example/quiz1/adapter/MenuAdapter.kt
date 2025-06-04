@@ -45,6 +45,7 @@ class MenuAdapter(
             "grupos" -> holder.icono.setImageResource(R.drawable.ic_school)
             "matrículas" -> holder.icono.setImageResource(R.drawable.ic_school)
             "plan de estudio" -> holder.icono.setImageResource(R.drawable.ic_school)
+            "historial" -> holder.icono.setImageResource(R.drawable.ic_menu_book)
             else -> holder.icono.setImageResource(R.drawable.ic_school)
         }
     }
