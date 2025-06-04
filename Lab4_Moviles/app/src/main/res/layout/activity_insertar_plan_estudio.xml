@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText android:id="@+id/etCarrera" android:hint="ID Carrera"
+        android:layout_width="match_parent" android:layout_height="wrap_content" inputType="number"/>
+
+    <EditText android:id="@+id/etCurso" android:hint="ID Curso"
+        android:layout_width="match_parent" android:layout_height="wrap_content" inputType="number"/>
+
+    <EditText android:id="@+id/etAnio" android:hint="Año"
+        android:layout_width="match_parent" android:layout_height="wrap_content" inputType="number"/>
+
+    <EditText android:id="@+id/etCiclo" android:hint="Ciclo"
+        android:layout_width="match_parent" android:layout_height="wrap_content" inputType="number"/>
+
+    <Button android:id="@+id/btnGuardarPlan" android:text="Guardar"
+        android:layout_width="match_parent" android:layout_height="wrap_content" />
+</LinearLayout>
