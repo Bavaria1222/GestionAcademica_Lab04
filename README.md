@@ -1,1 +1,24 @@
 # GestionAcademica_Lab04
+
+Este repositorio contiene un ejemplo de aplicación de gestión académica
+compuesto por un **backend** Java (carpeta `Laboratorio_Gym_Backend`) y una
+aplicación Android (carpeta `Lab4_Moviles`).
+
+## Cómo probar el sistema de historial y registro de notas
+
+1. Importe el script `Laboratorio_Gym_Backend/Script.sql` en su base de datos
+   Oracle.  Este script crea las tablas y registra datos de ejemplo para los
+   alumnos `S001` y `S002`, así como dos grupos impartidos por los profesores
+   `P001` y `P002`.  Ambos alumnos cuentan con matrículas que incluyen una nota
+   inicial.
+2. Desde la carpeta `Laboratorio_Gym_Backend/Gym_Backend` ejecute:
+
+   ```bash
+   ./gradlew run
+   ```
+
+   Esto iniciará el servidor en `http://localhost:8000`.
+3. Compile la aplicación Android ubicada en `Lab4_Moviles` utilizando Android
+   Studio.  Al ingresar como `S001` o `S002` podrá visualizar el historial de
+   matrículas.  Si ingresa como profesor (`P001` o `P002`) se mostrará la lista
+   de cursos que imparte para registrar notas.
