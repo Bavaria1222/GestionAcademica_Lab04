@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.*
 import com.example.quiz1.R
 import com.example.quiz1.activity.matriculaActivity.EditarMatriculaActivity
 import com.example.quiz1.activity.matriculaActivity.InsertarMatriculaActivity
-import com.example.quiz1.adapter.MatriculasAdapter
+import com.example.quiz1.adapter.MatriculaAdapter
 import com.example.quiz1.api.ApiClient
 import com.example.quiz1.api.MatriculaApi
 import com.example.quiz1.model.Matricula
@@ -26,7 +26,7 @@ class MatriculaFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
-    private lateinit var adapter: MatriculasAdapter
+    private lateinit var adapter: MatriculaAdapter
     private lateinit var fab: FloatingActionButton
 
     private lateinit var launcherInsertar: ActivityResultLauncher<Intent>
@@ -69,7 +69,7 @@ class MatriculaFragment : Fragment() {
         searchView   = view.findViewById(R.id.searchViewMatriculas)
         fab          = view.findViewById(R.id.fabMatriculas)
 
-        adapter = MatriculasAdapter(listaMatriculas)
+        adapter = MatriculaAdapter(listaMatriculas) { }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
