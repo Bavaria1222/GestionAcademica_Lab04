@@ -873,8 +873,27 @@ VALUES (
 );
 
 
+-- Matrícula del estudiante S002 con nota asignada
 INSERT INTO matricula (cedulaAlumno, idGrupo, nota)
-VALUES ('S002', 1, NULL);
+VALUES ('S002', 1, 85);
+
+-- Grupo adicional impartido por el profesor P001
+INSERT INTO grupo (idCiclo, idCurso, numGrupo, horario, idProfesor)
+VALUES (
+    1,
+    (SELECT idcurso FROM curso WHERE codigo = 'CS101'),
+    2,
+    'Martes y Jueves 08:00-10:00',
+    'P001'
+);
+
+-- Matrícula del estudiante S001 en el grupo anterior con nota
+INSERT INTO matricula (cedulaAlumno, idGrupo, nota)
+VALUES (
+    'S001',
+    (SELECT idGrupo FROM grupo WHERE idCurso = (SELECT idcurso FROM curso WHERE codigo = 'CS101') AND numGrupo = 2 AND idProfesor = 'P001'),
+    90
+);
 
 COMMIT;
 
