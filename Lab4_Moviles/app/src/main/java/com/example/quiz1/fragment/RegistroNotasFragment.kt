@@ -14,12 +14,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gestionacademicaapp.model.Ciclo
 import com.example.quiz1.R
 import com.example.quiz1.activity.notaActivity.RegistrarNotaActivity
 import com.example.quiz1.adapter.MatriculaAdapter
 import com.example.quiz1.api.ApiClient
-import com.example.quiz1.api.CicloApi
 import com.example.quiz1.api.GrupoApi
 import com.example.quiz1.api.MatriculaApi
 import com.example.quiz1.model.Grupo
@@ -39,7 +37,6 @@ class RegistroNotasFragment : Fragment() {
     private val listaMatriculas = mutableListOf<Matricula>()
     private val apiGrupo = ApiClient.retrofit.create(GrupoApi::class.java)
     private val apiMatricula = ApiClient.retrofit.create(MatriculaApi::class.java)
-    private val apiCiclo = ApiClient.retrofit.create(CicloApi::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,41 +70,38 @@ class RegistroNotasFragment : Fragment() {
     private fun cargarGruposProfesor() {
         val prefs = requireActivity().getSharedPreferences("datos_usuario", MODE_PRIVATE)
         val cedula = prefs.getString("cedula", null) ?: return
-        apiCiclo.listar().enqueue(object : Callback<List<Ciclo>> {
-            override fun onResponse(call: Call<List<Ciclo>>, response: Response<List<Ciclo>>) {
+        apiGrupo.listar().enqueue(object : Callback<List<Grupo>> {
+            override fun onResponse(call: Call<List<Grupo>>, response: Response<List<Grupo>>) {
                 if (response.isSuccessful) {
-                    val ciclos = response.body() ?: emptyList()
-                    val cicloActual = ciclos.maxByOrNull { it.idCiclo }?.idCiclo ?: return
-                    apiGrupo.listarPorProfesor(cedula, cicloActual).enqueue(object : Callback<List<Grupo>> {
-                        override fun onResponse(call: Call<List<Grupo>>, response: Response<List<Grupo>>) {
-                            if (response.isSuccessful) {
-                                listaGrupos.clear()
-                                listaGrupos.addAll(response.body() ?: emptyList())
-                                val nombres = listaGrupos.map { "Grupo ${it.numGrupo} - Curso ${it.idCurso}" }
-                                spinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nombres).also {
-                                    it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                                }
-                                spinner.setSelection(0, false)
-                                spinner.setOnItemSelectedListener(object : android.widget.AdapterView.OnItemSelectedListener {
-                                    override fun onItemSelected(parent: android.widget.AdapterView<*>, view: View?, position: Int, id: Long) {
-                                        cargarMatriculas()
-                                    }
-                                    override fun onNothingSelected(parent: android.widget.AdapterView<*>) {}
-                                })
-                                if (listaGrupos.isNotEmpty()) cargarMatriculas()
-                            } else {
-                                Toast.makeText(requireContext(), "Error al cargar grupos", Toast.LENGTH_SHORT).show()
-                            }
+                    listaGrupos.clear()
+                    listaGrupos.addAll(response.body()?.filter { it.idProfesor == cedula } ?: emptyList())
+
+                    if (listaGrupos.isEmpty()) {
+                        Toast.makeText(requireContext(), "No hay grupos asignados", Toast.LENGTH_SHORT).show()
+                        spinner.adapter = null
+                        adapter.actualizarLista(emptyList())
+                        return
+                    }
+
+                    val nombres = listaGrupos.map { "Grupo ${it.numGrupo} - Curso ${it.idCurso}" }
+                    spinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nombres).also {
+                        it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    }
+                    spinner.setSelection(0, false)
+                    spinner.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(parent: android.widget.AdapterView<*>, view: View?, position: Int, id: Long) {
+                            cargarMatriculas()
                         }
 
-                        override fun onFailure(call: Call<List<Grupo>>, t: Throwable) {
-                            Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
-                        }
-                    })
+                        override fun onNothingSelected(parent: android.widget.AdapterView<*>) {}
+                    }
+                    cargarMatriculas()
+                } else {
+                    Toast.makeText(requireContext(), "Error al cargar grupos", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<List<Ciclo>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Grupo>>, t: Throwable) {
                 Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
