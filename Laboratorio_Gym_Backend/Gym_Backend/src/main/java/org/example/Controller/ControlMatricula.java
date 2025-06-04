@@ -25,6 +25,10 @@ public class ControlMatricula {
         return servicioMatricula.listarMatricula();
     }
 
+    public Collection<Matricula> listarMatriculaAlumno(String cedula) throws GlobalException, NoDataException {
+        return servicioMatricula.listarMatriculaAlumno(cedula);
+    }
+
     // Busca una matrícula por id
     public Matricula buscarMatricula(int id) throws GlobalException, NoDataException {
         return servicioMatricula.buscarMatricula(id);

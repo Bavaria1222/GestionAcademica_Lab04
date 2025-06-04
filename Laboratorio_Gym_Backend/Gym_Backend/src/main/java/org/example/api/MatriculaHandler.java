@@ -35,7 +35,15 @@ public class MatriculaHandler implements HttpHandler {
         try {
             switch (method) {
                 case "GET" -> {
-                    if (parts.length == 4 && isNumeric(parts[3])) {
+                    if (parts.length == 5 && "alumno".equalsIgnoreCase(parts[3])) {
+                        String cedula = parts[4];
+                        try {
+                            Collection<Matricula> lista = control.listarMatriculaAlumno(cedula);
+                            sendJson(ex, 200, gson.toJson(lista));
+                        } catch (NoDataException nd) {
+                            sendJson(ex, 200, "[]");
+                        }
+                    } else if (parts.length == 4 && isNumeric(parts[3])) {
                         int id = Integer.parseInt(parts[3]);
                         Matricula matricula = control.buscarMatricula(id);
                         sendJson(ex, 200, gson.toJson(matricula));

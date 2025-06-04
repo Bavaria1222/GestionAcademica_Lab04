@@ -13,6 +13,7 @@ import com.example.gestionacademicaapp.model.Alumno
 import com.example.quiz1.R
 import com.example.quiz1.activity.alumnoActivity.EditarAlumnoActivity
 import com.example.quiz1.activity.alumnoActivity.InsertarAlumnoActivity
+import com.example.quiz1.activity.alumnoActivity.HistorialAlumnoActivity
 import com.example.quiz1.adapter.AlumnosAdapter
 import com.example.quiz1.api.AlumnoApi
 import com.example.quiz1.api.ApiClient
@@ -51,7 +52,11 @@ class AlumnosFragment : Fragment() {
         searchView    = view.findViewById(R.id.searchViewAlumnos)
         fab           = view.findViewById(R.id.fabAlumnos)
 
-        adapter = AlumnosAdapter(listaAlumnos)
+        adapter = AlumnosAdapter(listaAlumnos) { alumno ->
+            val intent = Intent(requireContext(), HistorialAlumnoActivity::class.java)
+            intent.putExtra("cedula", alumno.cedula)
+            startActivity(intent)
+        }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
