@@ -11,7 +11,8 @@ import com.example.gestionacademicaapp.model.Alumno
 import com.example.quiz1.R
 
 class AlumnosAdapter(
-    private val listaOriginal: MutableList<Alumno>
+    private val listaOriginal: MutableList<Alumno>,
+    private val onItemClick: (Alumno) -> Unit
 ) : RecyclerView.Adapter<AlumnosAdapter.ViewHolder>(), Filterable {
 
     // Esta es la que realmente se dibuja
@@ -24,6 +25,17 @@ class AlumnosAdapter(
         val tvEmail: TextView           = itemView.findViewById(R.id.tvEmail)
         val tvFechaNacimiento: TextView = itemView.findViewById(R.id.tvFechaNacimiento)
         val tvCarrera: TextView         = itemView.findViewById(R.id.tvCarrera)
+
+        fun bind(alumno: Alumno) {
+            tvCedula.text          = "Cédula: ${alumno.cedula}"
+            tvNombre.text          = "Nombre: ${alumno.nombre}"
+            tvTelefono.text        = "Teléfono: ${alumno.telefono}"
+            tvEmail.text           = "Email: ${alumno.email}"
+            tvFechaNacimiento.text = "Nacimiento: ${alumno.fechaNacimiento}"
+            tvCarrera.text         = "Carrera ID: ${alumno.idCarrera}"
+
+            itemView.setOnClickListener { onItemClick(alumno) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,13 +45,7 @@ class AlumnosAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val a = listaFiltrada[position]
-        holder.tvCedula.text          = "Cédula: ${a.cedula}"
-        holder.tvNombre.text          = "Nombre: ${a.nombre}"
-        holder.tvTelefono.text        = "Teléfono: ${a.telefono}"
-        holder.tvEmail.text           = "Email: ${a.email}"
-        holder.tvFechaNacimiento.text = "Nacimiento: ${a.fechaNacimiento}"
-        holder.tvCarrera.text         = "Carrera ID: ${a.idCarrera}"
+        holder.bind(listaFiltrada[position])
     }
 
     override fun getItemCount(): Int = listaFiltrada.size

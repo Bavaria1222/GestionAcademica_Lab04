@@ -19,6 +19,7 @@ public class ServicioMatricula extends Servicio {
     private static final String buscarMatricula = "{? = call buscarMatricula(?)}";
     private static final String modificarMatricula = "{call modificarMatricula(?,?,?,?,?)}";
     private static final String eliminarMatricula = "{call eliminarMatricula(?, ?)}";
+    private static final String listarMatriculaAlumno = "{? = call listarMatriculaAlumno(?)}";
 
 
     public ServicioMatricula() {
@@ -102,6 +103,54 @@ public class ServicioMatricula extends Servicio {
             }
         }
         if(!lista.isEmpty()){
+            return lista;
+        } else {
+            throw new NoDataException("No hay datos");
+        }
+    }
+
+    public Collection<Matricula> listarMatriculaAlumno(String cedula) throws GlobalException, NoDataException {
+        try {
+            this.conectar();
+        } catch (ClassNotFoundException e) {
+            throw new GlobalException("Driver no localizado: " + e.getMessage());
+        } catch (SQLException e) {
+            throw new NoDataException("La BD no se encuentra disponible: " + e.getMessage());
+        }
+
+        ArrayList<Matricula> lista = new ArrayList<>();
+        ResultSet rs = null;
+        CallableStatement pstmt = null;
+        try {
+            pstmt = this.conexion.prepareCall(listarMatriculaAlumno);
+            pstmt.registerOutParameter(1, -10);
+            pstmt.setString(2, cedula);
+            pstmt.execute();
+            rs = (ResultSet) pstmt.getObject(1);
+            while(rs.next()){
+                int idMatricula = rs.getInt("idMatricula");
+                String cedulaAlumno = rs.getString("cedulaAlumno");
+                int idGrupo = rs.getInt("idGrupo");
+                Float nota = rs.getFloat("nota");
+                if(rs.wasNull()){
+                    nota = null;
+                }
+                lista.add(new Matricula(idMatricula, cedulaAlumno, idGrupo, nota));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+            throw new GlobalException("Error al listar Matrículas: " + e.getMessage());
+        } finally {
+            try {
+                if(rs != null) rs.close();
+                if(pstmt != null) pstmt.close();
+                this.desconectar();
+            } catch(SQLException e) {
+                throw new GlobalException("Error cerrando recursos: " + e.getMessage());
+            }
+        }
+
+        if(!lista.isEmpty()) {
             return lista;
         } else {
             throw new NoDataException("No hay datos");

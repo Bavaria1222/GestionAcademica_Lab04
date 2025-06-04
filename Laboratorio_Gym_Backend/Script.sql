@@ -710,15 +710,29 @@ END;
 /
 CREATE OR REPLACE FUNCTION buscarMatricula(
     p_id IN matricula.idMatricula%TYPE
-) RETURN types.ref_cursor 
-AS 
-    matricula_cursor types.ref_cursor; 
-BEGIN 
-    OPEN matricula_cursor FOR 
-       SELECT idMatricula, cedulaAlumno, idGrupo, nota 
-       FROM matricula 
-       WHERE idMatricula = p_id; 
-    RETURN matricula_cursor; 
+) RETURN types.ref_cursor
+AS
+    matricula_cursor types.ref_cursor;
+BEGIN
+    OPEN matricula_cursor FOR
+       SELECT idMatricula, cedulaAlumno, idGrupo, nota
+       FROM matricula
+       WHERE idMatricula = p_id;
+    RETURN matricula_cursor;
+END;
+/
+
+CREATE OR REPLACE FUNCTION listarMatriculaAlumno(
+    p_cedula IN matricula.cedulaAlumno%TYPE
+) RETURN types.ref_cursor
+AS
+    matricula_cursor types.ref_cursor;
+BEGIN
+    OPEN matricula_cursor FOR
+       SELECT idMatricula, cedulaAlumno, idGrupo, nota
+       FROM matricula
+       WHERE cedulaAlumno = p_cedula;
+    RETURN matricula_cursor;
 END;
 /
 

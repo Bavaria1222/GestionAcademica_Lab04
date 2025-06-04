@@ -17,4 +17,7 @@ interface MatriculaApi {
 
     @DELETE("matriculas/{id}")
     fun eliminar(@Path("id") id: Int): Call<Void>
+
+    @GET("matriculas/alumno/{cedula}")
+    fun listarPorAlumno(@Path("cedula") cedula: String): Call<List<Matricula>>
 }
