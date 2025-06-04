@@ -18,11 +18,22 @@ aplicación Android (carpeta `Lab4_Moviles`).
    ./gradlew run
    ```
 
-   Esto iniciará el servidor en `http://localhost:8000`.
+   Esto iniciará el servidor en `http://localhost:8080`.
 3. Compile la aplicación Android ubicada en `Lab4_Moviles` utilizando Android
    Studio.  Al ingresar como `S001` o `S002` podrá visualizar el historial de
    matrículas.  Si ingresa como profesor (`P001` o `P002`) se mostrará la lista
    de cursos que imparte para registrar notas.
+
+### Pasos para probar el registro de notas en la aplicación móvil
+
+1. Con el servidor en funcionamiento abra la app en un emulador o dispositivo
+   y acceda utilizando las credenciales de un profesor (por ejemplo `P001`).
+2. En el menú principal elija la opción **"Registro notas"**.
+3. Seleccione el grupo en el *spinner* que aparece en la parte superior. La app
+   cargará automáticamente la lista de estudiantes matriculados.
+4. Toque el estudiante al que desea asignar o modificar la calificación.
+5. Ingrese la nota y presione **Guardar**. Si la operación es exitosa se
+   mostrará un mensaje de confirmación y la lista se actualizará.
 
 ### Credenciales de prueba
 
