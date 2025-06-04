@@ -8,9 +8,10 @@ aplicación Android (carpeta `Lab4_Moviles`).
 
 1. Importe el script `Laboratorio_Gym_Backend/Script.sql` en su base de datos
    Oracle.  Este script crea las tablas y registra datos de ejemplo para los
-   alumnos `S001` y `S002`, así como dos grupos impartidos por los profesores
+   alumnos `S001` y `S002`, así como varios grupos impartidos por los profesores
    `P001` y `P002`.  Ambos alumnos cuentan con matrículas que incluyen una nota
-   inicial.
+   inicial para que pueda probarse el registro y la modificación desde la
+   aplicación móvil.
 2. Desde la carpeta `Laboratorio_Gym_Backend/Gym_Backend` ejecute:
 
    ```bash
@@ -22,3 +23,16 @@ aplicación Android (carpeta `Lab4_Moviles`).
    Studio.  Al ingresar como `S001` o `S002` podrá visualizar el historial de
    matrículas.  Si ingresa como profesor (`P001` o `P002`) se mostrará la lista
    de cursos que imparte para registrar notas.
+
+### Credenciales de prueba
+
+| Usuario | Clave  | Rol      |
+|---------|-------|----------|
+| S001    | passS1| ALUMNO   |
+| S002    | passS2| ALUMNO   |
+| P001    | passP1| PROFESOR |
+| P002    | passP2| PROFESOR |
+
+Los profesores pueden consultar sus grupos actuales mediante el endpoint
+`/api/grupos/profesor/{cedula}/ciclo/{idCiclo}` y registrar notas utilizando el
+endpoint `/api/matriculas/grupo/{idGrupo}` para obtener la lista de estudiantes.

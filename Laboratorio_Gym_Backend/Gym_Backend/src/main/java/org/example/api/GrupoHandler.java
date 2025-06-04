@@ -35,7 +35,17 @@ public class GrupoHandler implements HttpHandler {
         try {
             switch (method) {
                 case "GET" -> {
-                    if (parts.length == 4 && isNumeric(parts[3])) {
+                    if (parts.length == 7 && "profesor".equalsIgnoreCase(parts[3]) &&
+                            "ciclo".equalsIgnoreCase(parts[5])) {
+                        String cedula = parts[4];
+                        int idCiclo = Integer.parseInt(parts[6]);
+                        try {
+                            Collection<Grupo> lista = control.listarGrupoProfesor(idCiclo, cedula);
+                            sendJson(ex, 200, gson.toJson(lista));
+                        } catch (NoDataException nd) {
+                            sendJson(ex, 200, "[]");
+                        }
+                    } else if (parts.length == 4 && isNumeric(parts[3])) {
                         int id = Integer.parseInt(parts[3]);
                         Grupo grupo = control.buscarGrupo(id);
                         sendJson(ex, 200, gson.toJson(grupo));

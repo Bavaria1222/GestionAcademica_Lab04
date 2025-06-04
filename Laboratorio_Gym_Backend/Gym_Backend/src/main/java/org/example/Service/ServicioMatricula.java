@@ -20,6 +20,8 @@ public class ServicioMatricula extends Servicio {
     private static final String modificarMatricula = "{call modificarMatricula(?,?,?,?,?)}";
     private static final String eliminarMatricula = "{call eliminarMatricula(?, ?)}";
     private static final String listarMatriculaAlumno = "{? = call listarMatriculaAlumno(?)}";
+    private static final String listarMatriculaGrupo =
+            "SELECT idMatricula, cedulaAlumno, idGrupo, nota FROM matricula WHERE idGrupo = ?";
 
 
     public ServicioMatricula() {
@@ -151,6 +153,46 @@ public class ServicioMatricula extends Servicio {
         }
 
         if(!lista.isEmpty()) {
+            return lista;
+        } else {
+            throw new NoDataException("No hay datos");
+        }
+    }
+
+    public Collection<Matricula> listarMatriculaGrupo(int idGrupo) throws GlobalException, NoDataException {
+        try {
+            this.conectar();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new GlobalException("Error en la conexión: " + e.getMessage());
+        }
+
+        ArrayList<Matricula> lista = new ArrayList<>();
+        ResultSet rs = null;
+        java.sql.PreparedStatement pstmt = null;
+        try {
+            pstmt = this.conexion.prepareStatement(listarMatriculaGrupo);
+            pstmt.setInt(1, idGrupo);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("idMatricula");
+                String ced = rs.getString("cedulaAlumno");
+                int idG = rs.getInt("idGrupo");
+                Float nota = rs.getFloat("nota");
+                if (rs.wasNull()) nota = null;
+                lista.add(new Matricula(id, ced, idG, nota));
+            }
+        } catch (SQLException e) {
+            throw new GlobalException("Error al listar Matrículas: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                this.desconectar();
+            } catch (SQLException e) {
+                throw new GlobalException("Error cerrando recursos: " + e.getMessage());
+            }
+        }
+        if (!lista.isEmpty()) {
             return lista;
         } else {
             throw new NoDataException("No hay datos");

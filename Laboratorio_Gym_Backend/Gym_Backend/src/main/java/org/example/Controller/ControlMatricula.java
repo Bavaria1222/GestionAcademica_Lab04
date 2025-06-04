@@ -29,6 +29,10 @@ public class ControlMatricula {
         return servicioMatricula.listarMatriculaAlumno(cedula);
     }
 
+    public Collection<Matricula> listarMatriculaGrupo(int idGrupo) throws GlobalException, NoDataException {
+        return servicioMatricula.listarMatriculaGrupo(idGrupo);
+    }
+
     // Busca una matrícula por id
     public Matricula buscarMatricula(int id) throws GlobalException, NoDataException {
         return servicioMatricula.buscarMatricula(id);

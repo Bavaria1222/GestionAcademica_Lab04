@@ -22,6 +22,9 @@ ServicioGrupo extends Servicio {
     private static final String buscarGrupo = "{? = call buscarGrupo(?)}";
     private static final String modificarGrupo = "{call modificarGrupo(?,?,?,?,?, ?,?)}";
     private static final String eliminarGrupo = "{call eliminarGrupo(?)}";
+    private static final String gruposPorProfesor =
+            "SELECT idGrupo, idCiclo, idCurso, numGrupo, horario, idProfesor FROM grupo " +
+            "WHERE idProfesor = ? AND idCiclo = ?";
 
     public ServicioGrupo() {
     }
@@ -92,6 +95,52 @@ ServicioGrupo extends Servicio {
                     rs.close();
                 if (pstmt != null)
                     pstmt.close();
+                this.desconectar();
+            } catch (SQLException e) {
+                throw new GlobalException("Error cerrando recursos: " + e.getMessage());
+            }
+        }
+        if (!lista.isEmpty()) {
+            return lista;
+        } else {
+            throw new NoDataException("No hay datos");
+        }
+    }
+
+    // Lista los grupos de un profesor en un ciclo específico
+    public Collection<Grupo> listarGrupoProfesor(int idCiclo, String cedula) throws GlobalException, NoDataException {
+        try {
+            this.conectar();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new GlobalException("Error en la conexión: " + e.getMessage());
+        }
+
+        ArrayList<Grupo> lista = new ArrayList<>();
+        ResultSet rs = null;
+        java.sql.PreparedStatement pstmt = null;
+        try {
+            pstmt = this.conexion.prepareStatement(gruposPorProfesor);
+            pstmt.setString(1, cedula);
+            pstmt.setInt(2, idCiclo);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Grupo grupo = new Grupo(
+                        rs.getInt("idGrupo"),
+                        rs.getInt("idCiclo"),
+                        rs.getInt("idCurso"),
+                        rs.getInt("numGrupo"),
+                        rs.getString("horario"),
+                        rs.getString("idProfesor")
+                );
+                lista.add(grupo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new GlobalException("Error al listar Grupos: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
                 this.desconectar();
             } catch (SQLException e) {
                 throw new GlobalException("Error cerrando recursos: " + e.getMessage());
