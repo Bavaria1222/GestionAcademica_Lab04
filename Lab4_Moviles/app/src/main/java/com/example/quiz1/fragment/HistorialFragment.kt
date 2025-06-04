@@ -49,9 +49,10 @@ class HistorialFragment : Fragment() {
                 response: Response<List<Matricula>>
             ) {
                 if (response.isSuccessful) {
+                    val datos = response.body() ?: emptyList()
                     lista.clear()
-                    lista.addAll(response.body() ?: emptyList())
-                    adapter.actualizarLista(lista)
+                    lista.addAll(datos)
+                    adapter.actualizarLista(datos)
                 } else {
                     Toast.makeText(requireContext(), "Error al cargar", Toast.LENGTH_SHORT).show()
                 }
