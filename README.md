@@ -36,3 +36,8 @@ aplicación Android (carpeta `Lab4_Moviles`).
 Los profesores pueden consultar sus grupos actuales mediante el endpoint
 `/api/grupos/profesor/{cedula}/ciclo/{idCiclo}` y registrar notas utilizando el
 endpoint `/api/matriculas/grupo/{idGrupo}` para obtener la lista de estudiantes.
+
+Para registrar y modificar notas desde la app, diríjase al menú "Registro de notas".
+Allí se muestran los grupos del profesor actual.
+Al seleccionar un grupo se cargan automáticamente los estudiantes matriculados y su nota.
+Tocando un estudiante se abre la actividad RegistrarNota donde puede editarse la calificación.
