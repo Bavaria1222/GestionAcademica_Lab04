@@ -5,13 +5,16 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:padding="8dp"
+    android:minHeight="48dp"
     android:elevation="4dp"
     android:radius="8dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@android:color/white">
 
         <TextView
             android:id="@+id/tvIdMatricula"

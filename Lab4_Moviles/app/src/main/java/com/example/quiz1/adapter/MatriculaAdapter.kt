@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quiz1.R
 import com.example.quiz1.model.Matricula
@@ -25,6 +26,7 @@ class MatriculaAdapter(
     }
 
     override fun onBindViewHolder(holder: MatriculaViewHolder, position: Int) {
+        Log.d("MatriculaAdapter", "Renderizando posición $position con ${matriculasFiltradas[position].cedulaAlumno}")
         holder.bind(matriculasFiltradas[position])
     }
 
@@ -33,10 +35,12 @@ class MatriculaAdapter(
     fun getItem(pos: Int): Matricula = matriculasFiltradas[pos]
 
     fun actualizarLista(nuevaLista: List<Matricula>) {
+        Log.d("MatriculaAdapter", "Actualizar lista con ${nuevaLista.size} elementos")
         matriculas.clear()
         matriculas.addAll(nuevaLista)
         matriculasFiltradas = nuevaLista.toMutableList()
         notifyDataSetChanged()
+        Log.d("MatriculaAdapter", "Items en adapter: ${itemCount}")
     }
 
     override fun getFilter(): Filter {
@@ -71,6 +75,7 @@ class MatriculaAdapter(
         private val tvNota: TextView = itemView.findViewById(R.id.tvNota)
 
         fun bind(matricula: Matricula) {
+            Log.d("MatriculaAdapter", "Bind matricula ID: ${matricula.idMatricula}, Alumno: ${matricula.cedulaAlumno}")
             tvIdMatricula.text = "ID: ${matricula.idMatricula}"
             tvCedulaAlumno.text = "Alumno: ${matricula.cedulaAlumno}"
             tvIdGrupo.text = "Grupo: ${matricula.idGrupo}"
