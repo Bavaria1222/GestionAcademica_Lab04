@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quiz1.R
-import com.example.quiz1.Api.ApiClient
-import com.example.quiz1.Api.MatriculaApi
 import com.example.quiz1.adapter.MatriculaAdapter
+import com.example.quiz1.api.ApiClient
+import com.example.quiz1.api.MatriculaApi
 import com.example.quiz1.model.Matricula
 import retrofit2.Call
 import retrofit2.Callback

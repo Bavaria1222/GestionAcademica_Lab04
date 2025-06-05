@@ -56,12 +56,15 @@ class RegistroNotasFragment : Fragment() {
     ): View {
         Log.d("RegistroNotas", "onCreateView")
         val view = inflater.inflate(R.layout.fragment_registro_notas, container, false)
+
         spinner = view.findViewById(R.id.spinnerGrupos)
         recyclerView = view.findViewById(R.id.recyclerViewNotas)
 
+        // Inicializamos el adapter con una copia vacía de listaMatriculas
         adapter = MatriculaAdapter(listaMatriculas) { matricula ->
-            val intent = Intent(requireContext(), RegistrarNotaActivity::class.java)
-            intent.putExtra("matricula", matricula)
+            val intent = Intent(requireContext(), RegistrarNotaActivity::class.java).apply {
+                putExtra("matricula", matricula)
+            }
             launcherEditar.launch(intent)
         }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -90,98 +93,166 @@ class RegistroNotasFragment : Fragment() {
     private fun cargarGruposProfesor() {
         val prefs = requireActivity().getSharedPreferences("datos_usuario", MODE_PRIVATE)
         val cedula = prefs.getString("cedula", null) ?: return
+
         Log.d("RegistroNotas", "Cargando grupos para profesor $cedula")
-        apiGrupo.listarPorProfesor(cedula, Constantes.CICLO_ACTUAL).enqueue(object : Callback<List<Grupo>> {
-            override fun onResponse(call: Call<List<Grupo>>, response: Response<List<Grupo>>) {
-                if (response.isSuccessful) {
-                    listaGrupos.clear()
-                    listaGrupos.addAll(response.body()?.filter { it.idProfesor == cedula } ?: emptyList())
+        apiGrupo.listarPorProfesor(cedula, Constantes.CICLO_ACTUAL)
+            .enqueue(object : Callback<List<Grupo>> {
+                override fun onResponse(
+                    call: Call<List<Grupo>>,
+                    response: Response<List<Grupo>>
+                ) {
+                    if (response.isSuccessful) {
+                        listaGrupos.clear()
+                        listaGrupos.addAll(
+                            response.body()
+                                ?.filter { it.idProfesor == cedula }
+                                ?: emptyList()
+                        )
 
-                    Log.d("RegistroNotas", "Grupos recibidos: ${listaGrupos.size}")
+                        Log.d("RegistroNotas", "Grupos recibidos: ${listaGrupos.size}")
 
-                    if (listaGrupos.isEmpty()) {
-                        Toast.makeText(requireContext(), "No hay grupos asignados", Toast.LENGTH_SHORT).show()
-                        spinner.adapter = null
-                        adapter.actualizarLista(emptyList())
-                        return
+                        if (listaGrupos.isEmpty()) {
+                            Toast.makeText(
+                                requireContext(),
+                                "No hay grupos asignados",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            spinner.adapter = null
+                            adapter.actualizarLista(emptyList())
+                            return
+                        }
+
+                        cargarCursosYCiclos()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al cargar grupos",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
-                    cargarCursosYCiclos()
-                } else {
-                    Toast.makeText(requireContext(), "Error al cargar grupos", Toast.LENGTH_SHORT).show()
                 }
-            }
 
-            override fun onFailure(call: Call<List<Grupo>>, t: Throwable) {
-                Log.d("RegistroNotas", "Error grupos: ${t.message}")
-                Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<List<Grupo>>, t: Throwable) {
+                    Log.d("RegistroNotas", "Error grupos: ${t.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        "Fallo: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     private fun cargarMatriculas() {
         val pos = spinner.selectedItemPosition
         if (pos == android.widget.AdapterView.INVALID_POSITION || listaGrupos.isEmpty()) return
+
         val idGrupo = listaGrupos[pos].idGrupo
         Log.d("RegistroNotas", "Cargar matrículas grupo $idGrupo")
-        apiMatricula.listarPorGrupo(idGrupo).enqueue(object : Callback<List<Matricula>> {
-            override fun onResponse(call: Call<List<Matricula>>, response: Response<List<Matricula>>) {
-                if (response.isSuccessful) {
-                    listaMatriculas.clear()
-                    listaMatriculas.addAll(response.body() ?: emptyList())
-                    Log.d("RegistroNotas", "Matrículas cargadas: ${listaMatriculas.size}")
-                    adapter.actualizarLista(listaMatriculas)
-                    Log.d("RegistroNotas", "ItemCount después de actualizar: ${adapter.itemCount}")
-                } else {
-                    Toast.makeText(requireContext(), "Error al cargar matrículas", Toast.LENGTH_SHORT).show()
-                }
-            }
 
-            override fun onFailure(call: Call<List<Matricula>>, t: Throwable) {
-                Log.d("RegistroNotas", "Error matriculas: ${t.message}")
-                Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+        apiMatricula.listarPorGrupo(idGrupo)
+            .enqueue(object : Callback<List<Matricula>> {
+                override fun onResponse(
+                    call: Call<List<Matricula>>,
+                    response: Response<List<Matricula>>
+                ) {
+                    if (response.isSuccessful) {
+                        listaMatriculas.clear()
+                        listaMatriculas.addAll(response.body() ?: emptyList())
+
+                        Log.d(
+                            "RegistroNotas",
+                            "Matrículas cargadas: ${listaMatriculas.size}"
+                        )
+
+                        // Llamamos a actualizarLista con la COPIA de la lista del fragmento
+                        adapter.actualizarLista(listaMatriculas)
+                        Log.d(
+                            "RegistroNotas",
+                            "ItemCount después de actualizar: ${adapter.itemCount}"
+                        )
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al cargar matrículas",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Matricula>>, t: Throwable) {
+                    Log.d("RegistroNotas", "Error matriculas: ${t.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        "Fallo: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     private fun cargarCursosYCiclos() {
         Log.d("RegistroNotas", "Cargar cursos")
-        apiCurso.listar().enqueue(object : Callback<List<Curso>> {
-            override fun onResponse(call: Call<List<Curso>>, response: Response<List<Curso>>) {
-                if (response.isSuccessful) {
-                    cursosMap = response.body()?.associateBy { it.idCurso } ?: emptyMap()
-                    Log.d("RegistroNotas", "Cursos cargados: ${cursosMap.size}")
-                    cargarCiclos()
-                } else {
-                    Toast.makeText(requireContext(), "Error al cargar cursos", Toast.LENGTH_SHORT).show()
+        apiCurso.listar()
+            .enqueue(object : Callback<List<Curso>> {
+                override fun onResponse(
+                    call: Call<List<Curso>>,
+                    response: Response<List<Curso>>
+                ) {
+                    if (response.isSuccessful) {
+                        cursosMap = response.body()?.associateBy { it.idCurso } ?: emptyMap()
+                        Log.d("RegistroNotas", "Cursos cargados: ${cursosMap.size}")
+                        cargarCiclos()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al cargar cursos",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<List<Curso>>, t: Throwable) {
-                Log.d("RegistroNotas", "Error cursos: ${t.message}")
-                Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<List<Curso>>, t: Throwable) {
+                    Log.d("RegistroNotas", "Error cursos: ${t.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        "Fallo: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     private fun cargarCiclos() {
         Log.d("RegistroNotas", "Cargar ciclos")
-        apiCiclo.listar().enqueue(object : Callback<List<Ciclo>> {
-            override fun onResponse(call: Call<List<Ciclo>>, response: Response<List<Ciclo>>) {
-                if (response.isSuccessful) {
-                    ciclosMap = response.body()?.associateBy { it.idCiclo } ?: emptyMap()
-                    Log.d("RegistroNotas", "Ciclos cargados: ${ciclosMap.size}")
-                    actualizarSpinner()
-                } else {
-                    Toast.makeText(requireContext(), "Error al cargar ciclos", Toast.LENGTH_SHORT).show()
+        apiCiclo.listar()
+            .enqueue(object : Callback<List<Ciclo>> {
+                override fun onResponse(
+                    call: Call<List<Ciclo>>,
+                    response: Response<List<Ciclo>>
+                ) {
+                    if (response.isSuccessful) {
+                        ciclosMap = response.body()?.associateBy { it.idCiclo } ?: emptyMap()
+                        Log.d("RegistroNotas", "Ciclos cargados: ${ciclosMap.size}")
+                        actualizarSpinner()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Error al cargar ciclos",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<List<Ciclo>>, t: Throwable) {
-                Log.d("RegistroNotas", "Error ciclos: ${t.message}")
-                Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<List<Ciclo>>, t: Throwable) {
+                    Log.d("RegistroNotas", "Error ciclos: ${t.message}")
+                    Toast.makeText(
+                        requireContext(),
+                        "Fallo: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     private fun actualizarSpinner() {
@@ -190,6 +261,7 @@ class RegistroNotasFragment : Fragment() {
             val anio = ciclosMap[grupo.idCiclo]?.anio?.toString() ?: grupo.idCiclo.toString()
             "Grupo ${grupo.numGrupo} - $nombreCurso - Año $anio"
         }
+
         Log.d("RegistroNotas", "Actualizar spinner con ${nombres.size} grupos")
         spinner.adapter = ArrayAdapter(
             requireContext(),
@@ -198,14 +270,22 @@ class RegistroNotasFragment : Fragment() {
         ).also {
             it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
+
         spinner.setSelection(0, false)
         spinner.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: android.widget.AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: android.widget.AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 cargarMatriculas()
             }
 
             override fun onNothingSelected(parent: android.widget.AdapterView<*>) {}
         }
+
+        // Carga inicial de matrículas para el primer elemento
         cargarMatriculas()
     }
 }

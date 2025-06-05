@@ -1,23 +1,31 @@
 package com.example.quiz1.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quiz1.R
 import com.example.quiz1.model.Matricula
 import java.util.*
 
 class MatriculaAdapter(
-    private val matriculas: MutableList<Matricula>,
+    itemsIniciales: List<Matricula>,
     private val onItemClick: (Matricula) -> Unit
 ) : RecyclerView.Adapter<MatriculaAdapter.MatriculaViewHolder>(), Filterable {
 
-    private var matriculasFiltradas: MutableList<Matricula> = matriculas.toMutableList()
+    // ------------------------------------------------------------------------------------------------
+    // En lugar de mantener una referencia directa a la lista del Fragmento,
+    // copiamos los datos entrantes a dos listas independientes:
+    //
+    //  • matriculas: lista “completa” (sin filtrar) que el adaptador controla internamente.
+    //  • matriculasFiltradas: lista que efectivamente se dibuja en pantalla (filtrada o no).
+    // ------------------------------------------------------------------------------------------------
+    private val matriculas: MutableList<Matricula> = itemsIniciales.toMutableList()
+    private var matriculasFiltradas: MutableList<Matricula> = itemsIniciales.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatriculaViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -26,7 +34,12 @@ class MatriculaAdapter(
     }
 
     override fun onBindViewHolder(holder: MatriculaViewHolder, position: Int) {
-        Log.d("MatriculaAdapter", "Renderizando posición $position con ${matriculasFiltradas[position].cedulaAlumno}")
+        // Mostramos un log para cada bind que se ejecute, así podemos verificar
+        // si realmente se están “dibujando” los ítems en el RecyclerView.
+        Log.d(
+            "MatriculaAdapter",
+            "Renderizando posición $position con ${matriculasFiltradas[position].cedulaAlumno}"
+        )
         holder.bind(matriculasFiltradas[position])
     }
 
@@ -34,20 +47,35 @@ class MatriculaAdapter(
 
     fun getItem(pos: Int): Matricula = matriculasFiltradas[pos]
 
+    /**
+     * Actualiza la lista completa del adaptador (sin filtrar) y, a la vez,
+     * repuebla la lista filtrada con todos los elementos de nuevaLista.
+     *
+     * IMPORTANTE: NO tocamos la lista del Fragmento, sino copiamos aquí los datos.
+     */
     fun actualizarLista(nuevaLista: List<Matricula>) {
         Log.d("MatriculaAdapter", "Actualizar lista con ${nuevaLista.size} elementos")
+
+        // 1) Reemplazamos la “lista completa” interna:
         matriculas.clear()
         matriculas.addAll(nuevaLista)
-        matriculasFiltradas = nuevaLista.toMutableList()
+
+        // 2) Repoblamos la lista filtrada para que muestre TODO (sin filtro aplicado):
+        matriculasFiltradas.clear()
+        matriculasFiltradas.addAll(nuevaLista)
+
+        // 3) Notificamos cambio de datos:
         notifyDataSetChanged()
-        Log.d("MatriculaAdapter", "Items en adapter: ${itemCount}")
+
+        // 4) Verificación final: revisamos cuántos ítems hay en la lista filtrada
+        Log.d("MatriculaAdapter", "Items en adapter (filtrados): $itemCount")
     }
 
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(query: CharSequence?): FilterResults {
                 val texto = query?.toString()?.lowercase(Locale.getDefault()) ?: ""
-                val resultado = if (texto.isEmpty()) {
+                val resultado: List<Matricula> = if (texto.isEmpty()) {
                     matriculas
                 } else {
                     matriculas.filter {
@@ -56,13 +84,18 @@ class MatriculaAdapter(
                                 it.idMatricula.toString().contains(texto)
                     }
                 }
-                val filterResults = FilterResults()
-                filterResults.values = resultado
-                return filterResults
+                return FilterResults().apply {
+                    values = resultado
+                }
             }
 
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                matriculasFiltradas = (results?.values as? List<Matricula>)?.toMutableList() ?: mutableListOf()
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(
+                constraint: CharSequence?,
+                results: FilterResults?
+            ) {
+                matriculasFiltradas = (results?.values as? List<Matricula>)?.toMutableList()
+                    ?: mutableListOf()
                 notifyDataSetChanged()
             }
         }
@@ -75,12 +108,14 @@ class MatriculaAdapter(
         private val tvNota: TextView = itemView.findViewById(R.id.tvNota)
 
         fun bind(matricula: Matricula) {
-            Log.d("MatriculaAdapter", "Bind matricula ID: ${matricula.idMatricula}, Alumno: ${matricula.cedulaAlumno}")
+            Log.d(
+                "MatriculaAdapter",
+                "Bind matricula ID: ${matricula.idMatricula}, Alumno: ${matricula.cedulaAlumno}"
+            )
             tvIdMatricula.text = "ID: ${matricula.idMatricula}"
             tvCedulaAlumno.text = "Alumno: ${matricula.cedulaAlumno}"
             tvIdGrupo.text = "Grupo: ${matricula.idGrupo}"
             tvNota.text = if (matricula.nota != null) {
-                // Mostramos la nota con dos decimales para mayor claridad
                 "Nota: %.2f".format(Locale.US, matricula.nota)
             } else {
                 "Nota: Sin nota"
