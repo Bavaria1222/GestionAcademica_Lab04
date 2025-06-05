@@ -74,7 +74,12 @@ class MatriculaAdapter(
             tvIdMatricula.text = "ID: ${matricula.idMatricula}"
             tvCedulaAlumno.text = "Alumno: ${matricula.cedulaAlumno}"
             tvIdGrupo.text = "Grupo: ${matricula.idGrupo}"
-            tvNota.text = "Nota: ${matricula.nota ?: "Sin nota"}"
+            tvNota.text = if (matricula.nota != null) {
+                // Mostramos la nota con dos decimales para mayor claridad
+                "Nota: %.2f".format(Locale.US, matricula.nota)
+            } else {
+                "Nota: Sin nota"
+            }
 
             itemView.setOnClickListener {
                 onItemClick(matricula)
