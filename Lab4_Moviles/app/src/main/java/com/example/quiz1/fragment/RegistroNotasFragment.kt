@@ -20,8 +20,12 @@ import com.example.quiz1.adapter.MatriculaAdapter
 import com.example.quiz1.api.ApiClient
 import com.example.quiz1.api.GrupoApi
 import com.example.quiz1.api.MatriculaApi
+import com.example.quiz1.api.CursoApi
+import com.example.quiz1.api.CicloApi
 import com.example.quiz1.model.Grupo
 import com.example.quiz1.model.Matricula
+import com.example.quiz1.model.Curso
+import com.example.gestionacademicaapp.model.Ciclo
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,6 +41,11 @@ class RegistroNotasFragment : Fragment() {
     private val listaMatriculas = mutableListOf<Matricula>()
     private val apiGrupo = ApiClient.retrofit.create(GrupoApi::class.java)
     private val apiMatricula = ApiClient.retrofit.create(MatriculaApi::class.java)
+    private val apiCurso = ApiClient.retrofit.create(CursoApi::class.java)
+    private val apiCiclo = ApiClient.retrofit.create(CicloApi::class.java)
+
+    private var cursosMap: Map<Int, Curso> = emptyMap()
+    private var ciclosMap: Map<Int, Ciclo> = emptyMap()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,19 +99,7 @@ class RegistroNotasFragment : Fragment() {
                         return
                     }
 
-                    val nombres = listaGrupos.map { "Grupo ${it.numGrupo} - Curso ${it.idCurso}" }
-                    spinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nombres).also {
-                        it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    }
-                    spinner.setSelection(0, false)
-                    spinner.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(parent: android.widget.AdapterView<*>, view: View?, position: Int, id: Long) {
-                            cargarMatriculas()
-                        }
-
-                        override fun onNothingSelected(parent: android.widget.AdapterView<*>) {}
-                    }
-                    cargarMatriculas()
+                    cargarCursosYCiclos()
                 } else {
                     Toast.makeText(requireContext(), "Error al cargar grupos", Toast.LENGTH_SHORT).show()
                 }
@@ -133,5 +130,63 @@ class RegistroNotasFragment : Fragment() {
                 Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun cargarCursosYCiclos() {
+        apiCurso.listar().enqueue(object : Callback<List<Curso>> {
+            override fun onResponse(call: Call<List<Curso>>, response: Response<List<Curso>>) {
+                if (response.isSuccessful) {
+                    cursosMap = response.body()?.associateBy { it.idCurso } ?: emptyMap()
+                    cargarCiclos()
+                } else {
+                    Toast.makeText(requireContext(), "Error al cargar cursos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Curso>>, t: Throwable) {
+                Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun cargarCiclos() {
+        apiCiclo.listar().enqueue(object : Callback<List<Ciclo>> {
+            override fun onResponse(call: Call<List<Ciclo>>, response: Response<List<Ciclo>>) {
+                if (response.isSuccessful) {
+                    ciclosMap = response.body()?.associateBy { it.idCiclo } ?: emptyMap()
+                    actualizarSpinner()
+                } else {
+                    Toast.makeText(requireContext(), "Error al cargar ciclos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Ciclo>>, t: Throwable) {
+                Toast.makeText(requireContext(), "Fallo: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun actualizarSpinner() {
+        val nombres = listaGrupos.map { grupo ->
+            val nombreCurso = cursosMap[grupo.idCurso]?.nombre ?: "Curso ${grupo.idCurso}"
+            val anio = ciclosMap[grupo.idCiclo]?.anio?.toString() ?: grupo.idCiclo.toString()
+            "Grupo ${grupo.numGrupo} - $nombreCurso - Año $anio"
+        }
+        spinner.adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            nombres
+        ).also {
+            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+        spinner.setSelection(0, false)
+        spinner.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: android.widget.AdapterView<*>, view: View?, position: Int, id: Long) {
+                cargarMatriculas()
+            }
+
+            override fun onNothingSelected(parent: android.widget.AdapterView<*>) {}
+        }
+        cargarMatriculas()
     }
 }

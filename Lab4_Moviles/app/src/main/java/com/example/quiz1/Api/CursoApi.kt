@@ -8,6 +8,9 @@ interface CursoApi {
     @GET("cursos")
     fun listar(): Call<List<Curso>>
 
+    @GET("cursos/{id}")
+    fun buscar(@Path("id") id: Int): Call<Curso>
+
     @POST("cursos")
     fun insertar(@Body curso: Curso): Call<Void>
 
