@@ -67,6 +67,13 @@ class RegistroNotasFragment : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Al volver al fragmento recargamos los grupos del profesor para
+        // asegurar que la lista de notas esté actualizada
+        cargarGruposProfesor()
+    }
+
     private fun cargarGruposProfesor() {
         val prefs = requireActivity().getSharedPreferences("datos_usuario", MODE_PRIVATE)
         val cedula = prefs.getString("cedula", null) ?: return
