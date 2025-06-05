@@ -131,6 +131,7 @@ class RegistroNotasFragment : Fragment() {
                     listaMatriculas.addAll(response.body() ?: emptyList())
                     Log.d("RegistroNotas", "Matrículas cargadas: ${listaMatriculas.size}")
                     adapter.actualizarLista(listaMatriculas)
+                    Log.d("RegistroNotas", "ItemCount después de actualizar: ${adapter.itemCount}")
                 } else {
                     Toast.makeText(requireContext(), "Error al cargar matrículas", Toast.LENGTH_SHORT).show()
                 }
