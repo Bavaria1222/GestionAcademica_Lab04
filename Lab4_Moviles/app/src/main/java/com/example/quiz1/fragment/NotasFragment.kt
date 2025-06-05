@@ -17,6 +17,7 @@ import com.example.quiz1.adapter.NotasAdapter
 import com.example.quiz1.api.ApiClient
 import com.example.quiz1.api.GrupoApi
 import com.example.quiz1.api.MatriculaApi
+import com.example.quiz1.util.Constantes
 import com.example.quiz1.model.Grupo
 import com.example.quiz1.model.Matricula
 import retrofit2.Call
@@ -54,7 +55,7 @@ class NotasFragment : Fragment() {
     private fun cargarGruposProfesor() {
         val prefs = requireActivity().getSharedPreferences("datos_usuario", MODE_PRIVATE)
         val cedula = prefs.getString("cedula", null) ?: return
-        apiGrupo.listar().enqueue(object : Callback<List<Grupo>> {
+        apiGrupo.listarPorProfesor(cedula, Constantes.CICLO_ACTUAL).enqueue(object : Callback<List<Grupo>> {
             override fun onResponse(call: Call<List<Grupo>>, response: Response<List<Grupo>>) {
                 if (response.isSuccessful) {
                     listaGrupos.clear()
