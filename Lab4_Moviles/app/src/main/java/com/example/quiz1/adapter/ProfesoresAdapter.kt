@@ -21,7 +21,7 @@ class ProfesoresAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfesorViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_profesor, parent, false)
+            .inflate(R.layout.item_card_default, parent, false)
         return ProfesorViewHolder(view)
     }
 
@@ -72,16 +72,21 @@ class ProfesoresAdapter(
 
     // ====================== ViewHolder ======================
     inner class ProfesorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvCedula   : TextView = itemView.findViewById(R.id.tvCedulaProfesor)
-        private val tvNombre   : TextView = itemView.findViewById(R.id.tvNombreProfesor)
-        private val tvTelefono : TextView = itemView.findViewById(R.id.tvTelefonoProfesor)
-        private val tvEmail    : TextView = itemView.findViewById(R.id.tvEmailProfesor)
+        private val line1: TextView = itemView.findViewById(R.id.tvLine1)
+        private val line2: TextView = itemView.findViewById(R.id.tvLine2)
+        private val line3: TextView = itemView.findViewById(R.id.tvLine3)
+        private val line4: TextView = itemView.findViewById(R.id.tvLine4)
+        private val line5: TextView? = itemView.findViewById(R.id.tvLine5)
+        private val line6: TextView? = itemView.findViewById(R.id.tvLine6)
 
         fun bind(profesor: Profesor) {
-            tvCedula.text   = "Cédula: ${profesor.cedula}"
-            tvNombre.text   = "Nombre: ${profesor.nombre}"
-            tvTelefono.text = "Teléfono: ${profesor.telefono}"
-            tvEmail.text    = "Email: ${profesor.email}"
+            line1.text = "Cédula: ${profesor.cedula}"
+            line2.text = "Nombre: ${profesor.nombre}"
+            line3.text = "Teléfono: ${profesor.telefono}"
+            line4.text = "Email: ${profesor.email}"
+
+            line5?.visibility = View.GONE
+            line6?.visibility = View.GONE
 
             itemView.setOnClickListener { onItemClick(profesor) }
         }

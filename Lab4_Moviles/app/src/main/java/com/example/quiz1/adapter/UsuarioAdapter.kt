@@ -20,20 +20,24 @@ class UsuarioAdapter(
     private var listaFiltrada: MutableList<Usuario> = listaOriginal.toMutableList()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvCedula: TextView = itemView.findViewById(R.id.tvCedulaUsuario)
-        private val tvClave: TextView  = itemView.findViewById(R.id.tvClaveUsuario)
-        private val tvRol: TextView    = itemView.findViewById(R.id.tvRolUsuario)
+        private val line1: TextView = itemView.findViewById(R.id.tvLine1)
+        private val line2: TextView = itemView.findViewById(R.id.tvLine2)
+        private val line3: TextView = itemView.findViewById(R.id.tvLine3)
 
         fun bind(usuario: Usuario) {
-            tvCedula.text = "Cédula: ${usuario.cedula}"
-            tvClave.text  = "Clave: ${usuario.clave}"
-            tvRol.text    = "Rol: ${usuario.rol}"
+            line1.text = "Cédula: ${usuario.cedula}"
+            line2.text = "Clave: ${usuario.clave}"
+            line3.text = "Rol: ${usuario.rol}"
+
+            itemView.findViewById<TextView>(R.id.tvLine4)?.visibility = View.GONE
+            itemView.findViewById<TextView>(R.id.tvLine5)?.visibility = View.GONE
+            itemView.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_usuario, parent, false)
+            .inflate(R.layout.item_card_default, parent, false)
         return ViewHolder(view)
     }
 

@@ -19,20 +19,27 @@ class AlumnosAdapter(
     private var listaFiltrada: MutableList<Alumno> = listaOriginal.toMutableList()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvCedula: TextView          = itemView.findViewById(R.id.tvCedula)
-        val tvNombre: TextView          = itemView.findViewById(R.id.tvNombre)
-        val tvTelefono: TextView        = itemView.findViewById(R.id.tvTelefono)
-        val tvEmail: TextView           = itemView.findViewById(R.id.tvEmail)
-        val tvFechaNacimiento: TextView = itemView.findViewById(R.id.tvFechaNacimiento)
-        val tvCarrera: TextView         = itemView.findViewById(R.id.tvCarrera)
+        private val line1: TextView = itemView.findViewById(R.id.tvLine1)
+        private val line2: TextView = itemView.findViewById(R.id.tvLine2)
+        private val line3: TextView = itemView.findViewById(R.id.tvLine3)
+        private val line4: TextView = itemView.findViewById(R.id.tvLine4)
+        private val line5: TextView = itemView.findViewById(R.id.tvLine5)
+        private val line6: TextView = itemView.findViewById(R.id.tvLine6)
 
         fun bind(alumno: Alumno) {
-            tvCedula.text          = "Cédula: ${alumno.cedula}"
-            tvNombre.text          = "Nombre: ${alumno.nombre}"
-            tvTelefono.text        = "Teléfono: ${alumno.telefono}"
-            tvEmail.text           = "Email: ${alumno.email}"
-            tvFechaNacimiento.text = "Nacimiento: ${alumno.fechaNacimiento}"
-            tvCarrera.text         = "Carrera ID: ${alumno.idCarrera}"
+            line1.text = "Nombre: ${alumno.nombre}"
+            line2.text = "Cédula: ${alumno.cedula}"
+            line3.text = "Teléfono: ${alumno.telefono}"
+            line4.text = "Email: ${alumno.email}"
+            line5.text = "Nacimiento: ${alumno.fechaNacimiento}"
+            line6.text = "Carrera ID: ${alumno.idCarrera}"
+
+            line1.visibility = View.VISIBLE
+            line2.visibility = View.VISIBLE
+            line3.visibility = View.VISIBLE
+            line4.visibility = View.VISIBLE
+            line5.visibility = View.VISIBLE
+            line6.visibility = View.VISIBLE
 
             itemView.setOnClickListener { onItemClick(alumno) }
         }
@@ -40,7 +47,7 @@ class AlumnosAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val row = LayoutInflater.from(parent.context)
-            .inflate(R.layout.alumno_item, parent, false)
+            .inflate(R.layout.item_card_default, parent, false)
         return ViewHolder(row)
     }
 

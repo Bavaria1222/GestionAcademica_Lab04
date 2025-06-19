@@ -21,7 +21,7 @@ class PlanEstudioAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlanViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_plan_estudio, parent, false)
+            .inflate(R.layout.item_card_default, parent, false)
         return PlanViewHolder(view)
     }
 
@@ -89,22 +89,22 @@ class PlanEstudioAdapter(
     // ViewHolder interno
     // ================================
     inner class PlanViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvIdPlan: TextView      = itemView.findViewById(R.id.tvIdPlan)
-        private val tvCarreraPlan: TextView = itemView.findViewById(R.id.tvCarreraPlan)
-        private val tvCursoPlan: TextView   = itemView.findViewById(R.id.tvCursoPlan)
-        private val tvAnioPlan: TextView    = itemView.findViewById(R.id.tvAnioPlan)
-        private val tvCicloPlan: TextView   = itemView.findViewById(R.id.tvCicloPlan)
+        private val line1: TextView = itemView.findViewById(R.id.tvLine1)
+        private val line2: TextView = itemView.findViewById(R.id.tvLine2)
+        private val line3: TextView = itemView.findViewById(R.id.tvLine3)
+        private val line4: TextView = itemView.findViewById(R.id.tvLine4)
+        private val line5: TextView = itemView.findViewById(R.id.tvLine5)
 
         fun bind(plan: PlanEstudio) {
-            tvIdPlan.text = "ID: ${plan.idPlanEstudio}"
-            tvCarreraPlan.text = "Carrera: ${plan.idCarrera}"
-            tvCursoPlan.text = "Curso: ${plan.idCurso}"
-            tvAnioPlan.text = "Año: ${plan.anio}"
-            tvCicloPlan.text = "Ciclo: ${plan.ciclo}"
+            line1.text = "ID: ${plan.idPlanEstudio}"
+            line2.text = "Carrera: ${plan.idCarrera}"
+            line3.text = "Curso: ${plan.idCurso}"
+            line4.text = "Año: ${plan.anio}"
+            line5.text = "Ciclo: ${plan.ciclo}"
 
-            itemView.setOnClickListener {
-                onItemClick(plan)
-            }
+            itemView.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
+
+            itemView.setOnClickListener { onItemClick(plan) }
         }
     }
 }

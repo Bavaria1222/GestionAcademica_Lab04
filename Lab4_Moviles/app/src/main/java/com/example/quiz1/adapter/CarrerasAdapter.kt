@@ -13,22 +13,29 @@ class CarrerasAdapter(private val items: List<Carrera>) :
     RecyclerView.Adapter<CarrerasAdapter.ViewHolder>() {
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val tvNombre: TextView = v.findViewById(R.id.tvCarreraNombre)
-        val tvCodigo: TextView = v.findViewById(R.id.tvCarreraCodigo)
-        val tvTitulo:  TextView = v.findViewById(R.id.tvCarreraTitulo)
+        private val line1: TextView = v.findViewById(R.id.tvLine1)
+        private val line2: TextView = v.findViewById(R.id.tvLine2)
+        private val line3: TextView = v.findViewById(R.id.tvLine3)
+
+        fun bind(carrera: Carrera) {
+            line1.text = "Nombre: ${carrera.nombre}"
+            line2.text = "Código: ${carrera.codigo}"
+            line3.text = "Título: ${carrera.titulo}"
+
+            v.findViewById<TextView>(R.id.tvLine4)?.visibility = View.GONE
+            v.findViewById<TextView>(R.id.tvLine5)?.visibility = View.GONE
+            v.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context)
-            .inflate(R.layout.carrera_item, parent, false)
+            .inflate(R.layout.item_card_default, parent, false)
     )
 
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val c = items[position]
-        holder.tvNombre.text = "Nombre: ${c.nombre}"
-        holder.tvCodigo.text = "Código: ${c.codigo}"
-        holder.tvTitulo.text  = "Título: ${c.titulo}"
+        holder.bind(items[position])
     }
 }

@@ -15,26 +15,31 @@ class CiclosAdapter(private var listaOriginal: MutableList<Ciclo>) :
     private var listaFiltrada = listaOriginal.toMutableList()
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val tvId: TextView = v.findViewById(R.id.tvId)
-        val tvAnio: TextView = v.findViewById(R.id.tvAnio)
-        val tvNumero: TextView = v.findViewById(R.id.tvNumero)
-        val tvInicio: TextView = v.findViewById(R.id.tvFechaInicio)
-        val tvFin: TextView = v.findViewById(R.id.tvFechaFin)
+        private val line1: TextView = v.findViewById(R.id.tvLine1)
+        private val line2: TextView = v.findViewById(R.id.tvLine2)
+        private val line3: TextView = v.findViewById(R.id.tvLine3)
+        private val line4: TextView = v.findViewById(R.id.tvLine4)
+        private val line5: TextView = v.findViewById(R.id.tvLine5)
+
+        fun bind(c: Ciclo) {
+            line1.text = "ID: ${c.idCiclo}"
+            line2.text = "Año: ${c.anio}"
+            line3.text = "Ciclo: ${c.numero}"
+            line4.text = "Inicio: ${c.fechaInicio}"
+            line5.text = "Fin: ${c.fechaFin}"
+
+            v.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
+        }
     }
 
     override fun onCreateViewHolder(p: ViewGroup, t: Int) = ViewHolder(
-        LayoutInflater.from(p.context).inflate(R.layout.ciclo_item, p, false)
+        LayoutInflater.from(p.context).inflate(R.layout.item_card_default, p, false)
     )
 
     override fun getItemCount() = listaFiltrada.size
 
     override fun onBindViewHolder(h: ViewHolder, pos: Int) {
-        val c = listaFiltrada[pos]
-        h.tvId.text = "ID: ${c.idCiclo}"
-        h.tvAnio.text = "Año: ${c.anio}"
-        h.tvNumero.text = "Ciclo: ${c.numero}"
-        h.tvInicio.text = "Inicio: ${c.fechaInicio}"
-        h.tvFin.text = "Fin: ${c.fechaFin}"
+        h.bind(listaFiltrada[pos])
     }
 
     fun agregar(c: Ciclo) {
