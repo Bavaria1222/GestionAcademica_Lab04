@@ -4,39 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:padding="8dp"
+    android:padding="12dp"
     android:elevation="4dp"
     android:radius="8dp">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="start">
 
         <TextView
             android:id="@+id/tvCedulaProfesor"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
             android:text="Cédula:" />
 
         <TextView
             android:id="@+id/tvNombreProfesor"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
             android:text="Nombre:" />
 
         <TextView
             android:id="@+id/tvTelefonoProfesor"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
             android:text="Teléfono:" />
 
         <TextView
             android:id="@+id/tvEmailProfesor"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
             android:text="Email:" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

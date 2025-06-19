@@ -6,4 +6,5 @@
     <color name="background">#121212</color>
     <color name="textColor">#FFFFFF</color>
     <color name="divider">#373737</color>
+    <color name="drawer_background">#1E1E1E</color>
 </resources>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:padding="8dp"
+    android:padding="12dp"
     android:minHeight="48dp"
     android:elevation="4dp"
     android:radius="8dp">
@@ -13,27 +13,31 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="@android:color/white">
+        android:gravity="start"
+        android:background="?attr/colorSurface">
 
         <TextView
             android:id="@+id/tvIdMatricula"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="none" />
 
         <TextView
             android:id="@+id/tvCedulaAlumno"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="none" />
 
         <TextView
             android:id="@+id/tvIdGrupo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="none" />
 
         <TextView
             android:id="@+id/tvNota"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="none" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
