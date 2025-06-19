@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
             val clave = etContrasena.text.toString()
             if (cedula.isBlank() || clave.isBlank()) {
                 Toast.makeText(this, "Complete los campos", Toast.LENGTH_SHORT).show()
+                window.decorView.announceForAccessibility("Complete los campos")
             } else {
                 val usuario = Usuario(cedula, clave, "")
                 api.login(usuario).enqueue(object : Callback<Usuario> {
@@ -46,9 +47,11 @@ class LoginActivity : AppCompatActivity() {
                                 .putString("rol", user.rol.uppercase())
                                 .apply()
                             startActivity(Intent(this@LoginActivity, MenuActivity::class.java))
+                            window.decorView.announceForAccessibility("Inicio de sesión exitoso")
                             finish()
                         } else {
                             Toast.makeText(this@LoginActivity, "Credenciales inválidas", Toast.LENGTH_SHORT).show()
+                            window.decorView.announceForAccessibility("Credenciales inválidas")
                         }
                     }
 

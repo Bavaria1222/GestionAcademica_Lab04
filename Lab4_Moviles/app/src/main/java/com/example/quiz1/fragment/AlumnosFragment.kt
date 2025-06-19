@@ -114,6 +114,7 @@ class AlumnosFragment : Fragment() {
                 if (response.isSuccessful) {
                     val body = response.body() ?: emptyList()
                     adapter.setData(body)   // <--- aquí actualizas filtro y original
+                    view?.announceForAccessibility("Lista de alumnos actualizada")
                 } else {
                     Toast.makeText(requireContext(),
                         "Error al cargar alumnos", Toast.LENGTH_SHORT

@@ -31,7 +31,7 @@
         android:layout_gravity="start"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#FFFFFF">
+        android:background="?attr/colorSurface">
 
         <!-- TÍTULO -->
         <TextView
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Bienvenido, usuario"
             android:textStyle="italic"
-            android:textColor="#666666"
+            android:textColor="?android:textColorSecondary"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="12dp" />
 
@@ -59,7 +59,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#DDDDDD"
+            android:background="?attr/colorOutline"
             android:layout_marginBottom="12dp" />
 
         <!-- MENÚ -->
@@ -73,7 +73,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#DDDDDD"
+            android:background="?attr/colorOutline"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp" />
 
@@ -87,7 +87,8 @@
             android:textStyle="bold"
             android:gravity="center"
             android:padding="12dp"
-            android:background="?attr/selectableItemBackground" />
+            android:background="?attr/selectableItemBackground"
+            android:minHeight="48dp" />
 
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

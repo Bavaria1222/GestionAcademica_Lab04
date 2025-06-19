@@ -9,26 +9,33 @@
         android:id="@+id/etCedula"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Cédula" />
+        android:hint="Cédula"
+        android:textSize="16sp"
+        android:nextFocusDown="@id/etContrasena" />
 
     <EditText
         android:id="@+id/etContrasena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contraseña"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textSize="16sp"
+        android:nextFocusDown="@id/btnLogin" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ingresar" />
+        android:text="Ingresar"
+        android:minHeight="48dp" />
 
     <TextView
         android:id="@+id/tvRegistro"
         android:text="¿No tienes cuenta? Regístrate aquí"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="?attr/colorPrimary"
+        android:contentDescription="Enlace para registrarse"
         android:layout_marginTop="16dp"
+        android:textSize="14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>
