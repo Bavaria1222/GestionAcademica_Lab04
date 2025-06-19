@@ -5,4 +5,5 @@
     <color name="red_accent">#FF5252</color>
     <color name="background">#FAFAFA</color>
     <color name="textColor">#000000</color>
+    <color name="drawer_background">#FAFAFA</color>
 </resources>
