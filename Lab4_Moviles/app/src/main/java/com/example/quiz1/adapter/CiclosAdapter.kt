@@ -14,12 +14,12 @@ class CiclosAdapter(private var listaOriginal: MutableList<Ciclo>) :
 
     private var listaFiltrada = listaOriginal.toMutableList()
 
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        private val line1: TextView = v.findViewById(R.id.tvLine1)
-        private val line2: TextView = v.findViewById(R.id.tvLine2)
-        private val line3: TextView = v.findViewById(R.id.tvLine3)
-        private val line4: TextView = v.findViewById(R.id.tvLine4)
-        private val line5: TextView = v.findViewById(R.id.tvLine5)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val line1: TextView = itemView.findViewById(R.id.tvLine1)
+        private val line2: TextView = itemView.findViewById(R.id.tvLine2)
+        private val line3: TextView = itemView.findViewById(R.id.tvLine3)
+        private val line4: TextView = itemView.findViewById(R.id.tvLine4)
+        private val line5: TextView = itemView.findViewById(R.id.tvLine5)
 
         fun bind(c: Ciclo) {
             line1.text = "ID: ${c.idCiclo}"
@@ -28,7 +28,7 @@ class CiclosAdapter(private var listaOriginal: MutableList<Ciclo>) :
             line4.text = "Inicio: ${c.fechaInicio}"
             line5.text = "Fin: ${c.fechaFin}"
 
-            v.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
+            itemView.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
         }
     }
 
