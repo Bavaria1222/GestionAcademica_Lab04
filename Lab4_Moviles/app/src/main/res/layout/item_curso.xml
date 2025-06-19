@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:padding="12dp"
-    android:elevation="4dp"
-    android:radius="8dp">
+    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start">
+        android:gravity="start"
+        android:padding="12dp">
 
-        <TextView android:id="@+id/tvIdCurso" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none"/>
-        <TextView android:id="@+id/tvCodigoCurso" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none"/>
-        <TextView android:id="@+id/tvNombreCurso" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none"/>
-        <TextView android:id="@+id/tvCreditosCurso" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none"/>
-        <TextView android:id="@+id/tvHorasSemanales" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none"/>
+        <TextView android:id="@+id/tvIdCurso" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
+        <TextView android:id="@+id/tvCodigoCurso" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
+        <TextView android:id="@+id/tvNombreCurso" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
+        <TextView android:id="@+id/tvCreditosCurso" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
+        <TextView android:id="@+id/tvHorasSemanales" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

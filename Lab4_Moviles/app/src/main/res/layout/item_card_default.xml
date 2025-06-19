@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:minHeight="48dp"
-    android:padding="12dp"
     app:cardElevation="4dp"
     app:cardCornerRadius="12dp"
     app:cardBackgroundColor="?attr/colorSurface">
@@ -14,12 +13,16 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tvLine1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textStyle="bold"
             android:textSize="16sp" />
 
@@ -27,30 +30,45 @@
             android:id="@+id/tvLine2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvLine3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvLine4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvLine5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvLine6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textSize="14sp" />
     </LinearLayout>
 
