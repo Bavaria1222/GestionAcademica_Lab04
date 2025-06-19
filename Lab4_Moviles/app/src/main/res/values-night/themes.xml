@@ -1,3 +1,9 @@
 <resources>
-    <style name="Theme.Quiz1" parent="Theme.Material3.DayNight.NoActionBar"/>
+    <style name="Theme.Quiz1" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/red_primary</item>
+        <item name="colorPrimaryDark">@color/red_primary_variant</item>
+        <item name="colorOnPrimary">@color/textColor</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/textColor</item>
+    </style>
 </resources>

@@ -20,6 +20,7 @@ class InsertarCarreraActivity : AppCompatActivity() {
     private lateinit var edtNombre: EditText
     private lateinit var edtTitulo: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnCancelar: Button
 
     private val api = ApiClient.retrofit.create(CarreraApi::class.java)
 
@@ -33,6 +34,7 @@ class InsertarCarreraActivity : AppCompatActivity() {
         edtNombre    = findViewById(R.id.edtNombre)
         edtTitulo    = findViewById(R.id.edtTitulo)
         btnGuardar   = findViewById(R.id.btnGuardar)
+        btnCancelar  = findViewById(R.id.btnCancelar)
 
         // 2) Hacer el campo de ID no editable:
         edtIdCarrera.isEnabled = false
@@ -83,5 +85,7 @@ class InsertarCarreraActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

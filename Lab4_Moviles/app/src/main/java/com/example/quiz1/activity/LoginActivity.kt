@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         val etContrasena = findViewById<EditText>(R.id.etContrasena)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val tvRegistro = findViewById<TextView>(R.id.tvRegistro)
+        val btnSalir = findViewById<Button>(R.id.btnSalir)
 
         val prefs = getSharedPreferences("datos_usuario", MODE_PRIVATE)
         val api = ApiClient.retrofit.create(LoginApi::class.java)
@@ -65,5 +66,7 @@ class LoginActivity : AppCompatActivity() {
         tvRegistro.setOnClickListener {
             startActivity(Intent(this, InscriptionActivity::class.java))
         }
+
+        btnSalir.setOnClickListener { finish() }
     }
 }

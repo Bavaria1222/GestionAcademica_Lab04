@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red_primary">#BB86FC</color>
+    <color name="red_primary_variant">#BB86FC</color>
+    <color name="red_accent">#BB86FC</color>
+    <color name="background">#121212</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="divider">#373737</color>
+</resources>

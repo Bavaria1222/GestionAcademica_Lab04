@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -73,6 +74,10 @@ class CarrerasFragment : Fragment() {
 
         v.findViewById<View>(R.id.fabCarreras).setOnClickListener {
             launcherInsert.launch(Intent(requireContext(), InsertarCarreraActivity::class.java))
+        }
+
+        v.findViewById<Button>(R.id.btnSalir)?.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         cargarCarreras()
