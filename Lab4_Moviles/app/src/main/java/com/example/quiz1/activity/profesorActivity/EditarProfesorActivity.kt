@@ -27,6 +27,7 @@ class EditarProfesorActivity : AppCompatActivity() {
         val edtTelefono = findViewById<EditText>(R.id.edtTelefonoProfesor)
         val edtEmail    = findViewById<EditText>(R.id.edtEmailProfesor)
         val btnActualizar = findViewById<Button>(R.id.btnActualizarProfesor)
+        val btnCancelar  = findViewById<Button>(R.id.btnCancelar)
 
         profesorOriginal = intent.getSerializableExtra("profesor") as Profesor
         // Rellenamos campos con los datos existentes
@@ -60,5 +61,7 @@ class EditarProfesorActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

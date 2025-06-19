@@ -59,7 +59,7 @@
             android:layout_marginTop="8dp"
             android:minHeight="48dp"
             android:text="Cancelar"
-            android:contentDescription="Cancelar" />
+            android:contentDescription="Botón para cancelar" />
 
     </LinearLayout>
 </ScrollView>

@@ -19,6 +19,7 @@ class InsertarCicloActivity : AppCompatActivity() {
     private lateinit var edtInicio: EditText
     private lateinit var edtFin: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnCancelar: Button
     private val api = ApiClient.retrofit.create(CicloApi::class.java)
 
     override fun onCreate(s: Bundle?) {
@@ -29,6 +30,7 @@ class InsertarCicloActivity : AppCompatActivity() {
         edtInicio  = findViewById(R.id.edtFechaInicio)
         edtFin     = findViewById(R.id.edtFechaFin)
         btnGuardar = findViewById(R.id.btnGuardar)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         btnGuardar.setOnClickListener {
             val c = Ciclo(
@@ -49,5 +51,7 @@ class InsertarCicloActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

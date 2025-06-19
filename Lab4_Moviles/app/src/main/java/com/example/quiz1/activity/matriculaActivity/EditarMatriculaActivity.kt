@@ -19,6 +19,7 @@ class EditarMatriculaActivity : AppCompatActivity() {
     private lateinit var edtIdGrupo: EditText
     private lateinit var edtNota: EditText
     private lateinit var btnActualizar: Button
+    private lateinit var btnCancelar: Button
 
     private val api = ApiClient.retrofit.create(MatriculaApi::class.java)
     private var idMatricula = 0
@@ -31,6 +32,7 @@ class EditarMatriculaActivity : AppCompatActivity() {
         edtIdGrupo = findViewById(R.id.edtIdGrupo)
         edtNota = findViewById(R.id.edtNota)
         btnActualizar = findViewById(R.id.btnActualizarMatricula)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         val matricula = intent.getSerializableExtra("matricula") as? Matricula
         matricula?.let {
@@ -63,5 +65,7 @@ class EditarMatriculaActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

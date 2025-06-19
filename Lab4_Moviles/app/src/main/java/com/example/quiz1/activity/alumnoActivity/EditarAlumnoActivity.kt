@@ -21,6 +21,7 @@ class EditarAlumnoActivity : AppCompatActivity() {
     private lateinit var edtFechaNacimiento: EditText
     private lateinit var edtIdCarrera: EditText
     private lateinit var btnActualizar: Button
+    private lateinit var btnCancelar: Button
 
     private val api = ApiClient.retrofit.create(AlumnoApi::class.java)
     private var idAlumno = 0
@@ -36,6 +37,7 @@ class EditarAlumnoActivity : AppCompatActivity() {
         edtFechaNacimiento = findViewById(R.id.edtFechaNacimiento)
         edtIdCarrera = findViewById(R.id.edtIdCarrera)
         btnActualizar = findViewById(R.id.btnActualizar)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         val alumno = intent.getSerializableExtra("alumno") as? Alumno
         alumno?.let {
@@ -85,5 +87,7 @@ class EditarAlumnoActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

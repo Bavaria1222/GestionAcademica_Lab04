@@ -18,6 +18,7 @@ class EditarUsuarioActivity : AppCompatActivity() {
     private lateinit var edtClave:  EditText
     private lateinit var edtRol:    EditText
     private lateinit var btnActualizar: Button
+    private lateinit var btnCancelar: Button
 
     private val api = ApiClient.retrofit.create(UsuarioApi::class.java)
     private var cedulaOriginal: String = ""
@@ -30,6 +31,7 @@ class EditarUsuarioActivity : AppCompatActivity() {
         edtClave   = findViewById(R.id.edtClaveUsuario)
         edtRol     = findViewById(R.id.edtRolUsuario)
         btnActualizar = findViewById(R.id.btnActualizarUsuario)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         // Recibir el Usuario pasado desde el fragment
         val usuarioRecibido = intent.getSerializableExtra("usuario") as? Usuario
@@ -65,5 +67,7 @@ class EditarUsuarioActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

@@ -20,6 +20,7 @@ class InsertarPlanEstudioActivity : AppCompatActivity() {
     private lateinit var etAnio: EditText
     private lateinit var etCiclo: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnCancelar: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class InsertarPlanEstudioActivity : AppCompatActivity() {
         etAnio = findViewById(R.id.etAnio)
         etCiclo = findViewById(R.id.etCiclo)
         btnGuardar = findViewById(R.id.btnGuardarPlan)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         btnGuardar.setOnClickListener {
             val nuevoPlan = PlanEstudio(
@@ -56,5 +58,7 @@ class InsertarPlanEstudioActivity : AppCompatActivity() {
                     }
                 })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

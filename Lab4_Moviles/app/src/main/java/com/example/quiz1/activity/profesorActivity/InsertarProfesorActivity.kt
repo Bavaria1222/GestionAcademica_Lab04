@@ -26,6 +26,7 @@ class InsertarProfesorActivity : AppCompatActivity() {
         val edtTelefono = findViewById<EditText>(R.id.edtTelefonoProfesor)
         val edtEmail    = findViewById<EditText>(R.id.edtEmailProfesor)
         val btnGuardar  = findViewById<Button>(R.id.btnGuardarProfesor)
+        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
 
         btnGuardar.setOnClickListener {
             val nuevo = Profesor(
@@ -49,5 +50,7 @@ class InsertarProfesorActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

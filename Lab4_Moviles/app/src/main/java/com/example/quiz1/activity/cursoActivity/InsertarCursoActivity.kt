@@ -23,6 +23,7 @@ class InsertarCursoActivity : AppCompatActivity() {
         val edtCreditos = findViewById<EditText>(R.id.edtCreditosCurso)
         val edtHoras = findViewById<EditText>(R.id.edtHorasCurso)
         val btnGuardar = findViewById<Button>(R.id.btnGuardarCurso)
+        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
 
         btnGuardar.setOnClickListener {
             val nuevoCurso = Curso(
@@ -45,5 +46,7 @@ class InsertarCursoActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }
