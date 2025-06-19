@@ -19,6 +19,7 @@ class EditarCarreraActivity : AppCompatActivity() {
     private lateinit var edtNombre: EditText
     private lateinit var edtTitulo: EditText
     private lateinit var btnActualizar: Button
+    private lateinit var btnCancelar: Button
     private val api = ApiClient.retrofit.create(CarreraApi::class.java)
     private var idCarrera = 0
 
@@ -29,6 +30,7 @@ class EditarCarreraActivity : AppCompatActivity() {
         edtNombre = findViewById(R.id.edtNombreCarrera)
         edtTitulo = findViewById(R.id.edtTituloCarrera)
         btnActualizar = findViewById(R.id.btnActualizarCarrera)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         val c = intent.getSerializableExtra("carrera") as? Carrera
         c?.let {
@@ -39,6 +41,7 @@ class EditarCarreraActivity : AppCompatActivity() {
         }
 
         btnActualizar.setOnClickListener { actualizar() }
+        btnCancelar.setOnClickListener { finish() }
     }
 
     private fun actualizar(){

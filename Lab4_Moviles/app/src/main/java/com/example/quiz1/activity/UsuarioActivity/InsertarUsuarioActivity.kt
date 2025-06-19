@@ -18,6 +18,7 @@ class InsertarUsuarioActivity : AppCompatActivity() {
     private lateinit var edtClave:  EditText
     private lateinit var edtRol:    EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnCancelar: Button
 
     private val api = ApiClient.retrofit.create(UsuarioApi::class.java)
 
@@ -29,6 +30,7 @@ class InsertarUsuarioActivity : AppCompatActivity() {
         edtClave   = findViewById(R.id.edtClaveUsuario)
         edtRol     = findViewById(R.id.edtRolUsuario)
         btnGuardar = findViewById(R.id.btnGuardarUsuario)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         btnGuardar.setOnClickListener {
             val usuario = Usuario(
@@ -57,5 +59,7 @@ class InsertarUsuarioActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

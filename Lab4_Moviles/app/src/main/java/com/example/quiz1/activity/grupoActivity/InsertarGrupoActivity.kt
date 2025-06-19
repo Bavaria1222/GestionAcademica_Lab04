@@ -23,7 +23,10 @@ class InsertarGrupoActivity : AppCompatActivity() {
         val edtNum     = findViewById<EditText>(R.id.edtNumGrupo)
         val edtHorario = findViewById<EditText>(R.id.edtHorario)
         val edtProf    = findViewById<EditText>(R.id.edtIdProfesor)
-        findViewById<Button>(R.id.btnGuardar).setOnClickListener {
+        val btnGuardar = findViewById<Button>(R.id.btnGuardar)
+        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
+
+        btnGuardar.setOnClickListener {
             val g = Grupo(
                 idGrupo = 0,
                 idCiclo = edtCiclo.text.toString().toIntOrNull() ?: 0,
@@ -50,5 +53,7 @@ class InsertarGrupoActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

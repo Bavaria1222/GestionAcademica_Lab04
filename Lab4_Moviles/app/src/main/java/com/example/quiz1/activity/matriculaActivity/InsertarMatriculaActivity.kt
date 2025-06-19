@@ -19,6 +19,7 @@ class InsertarMatriculaActivity : AppCompatActivity() {
     private lateinit var edtIdGrupo: EditText
     private lateinit var edtNota: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnCancelar: Button
 
     private val api = ApiClient.retrofit.create(MatriculaApi::class.java)
 
@@ -30,10 +31,12 @@ class InsertarMatriculaActivity : AppCompatActivity() {
         edtIdGrupo = findViewById(R.id.edtIdGrupo)
         edtNota = findViewById(R.id.edtNota)
         btnGuardar = findViewById(R.id.btnGuardarMatricula)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         btnGuardar.setOnClickListener {
             insertarMatricula()
         }
+        btnCancelar.setOnClickListener { finish() }
     }
 
     private fun insertarMatricula() {

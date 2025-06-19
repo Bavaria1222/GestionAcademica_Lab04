@@ -25,6 +25,7 @@ class EditarCursoActivity : AppCompatActivity() {
         val edtCreditos = findViewById<EditText>(R.id.edtCreditosCurso)
         val edtHoras = findViewById<EditText>(R.id.edtHorasCurso)
         val btnActualizar = findViewById<Button>(R.id.btnActualizarCurso)
+        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
 
         edtCodigo.setText(curso.codigo)
         edtNombre.setText(curso.nombre)
@@ -52,5 +53,7 @@ class EditarCursoActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

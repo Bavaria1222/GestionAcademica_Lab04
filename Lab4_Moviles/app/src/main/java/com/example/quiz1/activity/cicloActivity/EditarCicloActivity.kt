@@ -20,6 +20,7 @@ class EditarCicloActivity : AppCompatActivity() {
     private lateinit var edtInicio: EditText
     private lateinit var edtFin: EditText
     private lateinit var btnActualizar: Button
+    private lateinit var btnCancelar: Button
     private val api = ApiClient.retrofit.create(CicloApi::class.java)
     private var idCiclo = 0
 
@@ -33,6 +34,7 @@ class EditarCicloActivity : AppCompatActivity() {
         edtInicio   = findViewById(R.id.edtFechaInicio)
         edtFin        = findViewById(R.id.edtFechaFin)
         btnActualizar = findViewById(R.id.btnActualizar)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         val c = intent.getSerializableExtra("ciclo") as? Ciclo
         c?.let {
@@ -64,5 +66,7 @@ class EditarCicloActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

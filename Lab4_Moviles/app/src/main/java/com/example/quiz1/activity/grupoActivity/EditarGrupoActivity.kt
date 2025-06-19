@@ -27,6 +27,7 @@ class EditarGrupoActivity : AppCompatActivity() {
         val edtHorario = findViewById<EditText>(R.id.edtHorario)
         val edtProf    = findViewById<EditText>(R.id.edtIdProfesor)
         val btnAct     = findViewById<Button>(R.id.btnActualizar)
+        val btnCancelar = findViewById<Button>(R.id.btnCancelar)
 
         val g = intent.getSerializableExtra("grupo") as? Grupo
         g?.let {
@@ -65,5 +66,7 @@ class EditarGrupoActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

@@ -18,6 +18,7 @@ class EditarPlanEstudioActivity : AppCompatActivity() {
     private lateinit var etAnio: EditText
     private lateinit var etCiclo: EditText
     private lateinit var btnActualizar: Button
+    private lateinit var btnCancelar: Button
 
     private lateinit var planOriginal: PlanEstudio
 
@@ -31,6 +32,7 @@ class EditarPlanEstudioActivity : AppCompatActivity() {
         etAnio = findViewById(R.id.etAnioEditar)
         etCiclo = findViewById(R.id.etCicloEditar)
         btnActualizar = findViewById(R.id.btnActualizarPlan)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         // Obtenemos el plan recibido
         planOriginal = intent.getSerializableExtra("plan") as PlanEstudio
@@ -68,5 +70,7 @@ class EditarPlanEstudioActivity : AppCompatActivity() {
                     }
                 })
         }
+
+        btnCancelar.setOnClickListener { finish() }
     }
 }

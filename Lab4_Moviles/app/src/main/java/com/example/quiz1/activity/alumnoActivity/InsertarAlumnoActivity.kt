@@ -21,6 +21,7 @@ class InsertarAlumnoActivity : AppCompatActivity() {
     private lateinit var edtFechaNacimiento: EditText
     private lateinit var edtIdCarrera: EditText
     private lateinit var btnGuardar: Button
+    private lateinit var btnCancelar: Button
 
     private val api = ApiClient.retrofit.create(AlumnoApi::class.java)
 
@@ -35,8 +36,10 @@ class InsertarAlumnoActivity : AppCompatActivity() {
         edtFechaNacimiento = findViewById(R.id.edtFechaNacimiento)
         edtIdCarrera = findViewById(R.id.edtIdCarrera)
         btnGuardar = findViewById(R.id.btnGuardar)
+        btnCancelar = findViewById(R.id.btnCancelar)
 
         btnGuardar.setOnClickListener { insertarAlumno() }
+        btnCancelar.setOnClickListener { finish() }
     }
 
     private fun insertarAlumno() {

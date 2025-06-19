@@ -15,16 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@android:drawable/ic_input_add"/>
-
-    <!-- Botón Salir -->
-    <Button
-        android:id="@+id/btnSalir"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="16dp"
-        android:minHeight="48dp"
-        android:text="Salir"
-        android:contentDescription="Salir" />
+        android:src="@android:drawable/ic_input_add"
+        android:contentDescription="Agregar carrera"/>
 </FrameLayout>

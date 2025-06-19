@@ -33,16 +33,8 @@ class AlumnosFragment : Fragment() {
     private val api = ApiClient.retrofit.create(AlumnoApi::class.java)
 
     // Lanzadores para recibir RESULT_OK y recargar
-    private val launcherInsertar = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == Activity.RESULT_OK) cargarAlumnosDesdeApi()
-    }
-    private val launcherEditar = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == Activity.RESULT_OK) cargarAlumnosDesdeApi()
-    }
+    private lateinit var launcherInsertar: ActivityResultLauncher<Intent>
+    private lateinit var launcherEditar: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -103,6 +95,16 @@ class AlumnosFragment : Fragment() {
         }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        launcherInsertar = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) cargarAlumnosDesdeApi()
+        }
+        launcherEditar = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) cargarAlumnosDesdeApi()
+        }
     }
 
     private fun cargarAlumnosDesdeApi() {
