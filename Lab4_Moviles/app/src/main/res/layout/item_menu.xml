@@ -6,14 +6,16 @@
     android:paddingVertical="12dp"
     android:paddingHorizontal="16dp"
     android:background="?attr/selectableItemBackground"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:minHeight="48dp">
 
     <ImageView
         android:id="@+id/icono"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/ic_menu_book"
-        android:layout_marginEnd="12dp" />
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/menu_item_icon_desc" />
 
     <TextView
         android:id="@+id/tvOpcionMenu"
@@ -21,5 +23,5 @@
         android:layout_height="wrap_content"
         android:text="Opción"
         android:textSize="16sp"
-        android:textColor="#000000" />
+        android:textColor="?android:textColorPrimary" />
 </LinearLayout>
