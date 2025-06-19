@@ -13,7 +13,7 @@ class GruposAdapter(private val originalList: List<Grupo>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GrupoVH {
         val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_grupo, parent, false)
+            .inflate(R.layout.item_card_default, parent, false)
         return GrupoVH(v)
     }
     override fun onBindViewHolder(holder: GrupoVH, position: Int) {
@@ -22,20 +22,20 @@ class GruposAdapter(private val originalList: List<Grupo>) :
     override fun getItemCount() = filteredList.size
 
     inner class GrupoVH(item: View) : RecyclerView.ViewHolder(item) {
-        private val tvId      : TextView = item.findViewById(R.id.tvGrupoId)
-        private val tvCiclo   : TextView = item.findViewById(R.id.tvGrupoCiclo)
-        private val tvCurso   : TextView = item.findViewById(R.id.tvGrupoCurso)
-        private val tvNum     : TextView = item.findViewById(R.id.tvGrupoNum)
-        private val tvHorario : TextView = item.findViewById(R.id.tvGrupoHorario)
-        private val tvProf    : TextView = item.findViewById(R.id.tvGrupoProfesor)
+        private val line1: TextView = item.findViewById(R.id.tvLine1)
+        private val line2: TextView = item.findViewById(R.id.tvLine2)
+        private val line3: TextView = item.findViewById(R.id.tvLine3)
+        private val line4: TextView = item.findViewById(R.id.tvLine4)
+        private val line5: TextView = item.findViewById(R.id.tvLine5)
+        private val line6: TextView = item.findViewById(R.id.tvLine6)
 
         fun bind(g: Grupo) {
-            tvId.text      = "ID: ${g.idGrupo}"
-            tvCiclo.text   = "Ciclo: ${g.idCiclo}"
-            tvCurso.text   = "Curso: ${g.idCurso}"
-            tvNum.text     = "Grupo #${g.numGrupo}"
-            tvHorario.text = g.horario
-            tvProf.text    = "Profesor: ${g.idProfesor}"
+            line1.text = "ID: ${g.idGrupo}"
+            line2.text = "Ciclo: ${g.idCiclo}"
+            line3.text = "Curso: ${g.idCurso}"
+            line4.text = "Grupo #${g.numGrupo}"
+            line5.text = g.horario
+            line6.text = "Profesor: ${g.idProfesor}"
         }
     }
 

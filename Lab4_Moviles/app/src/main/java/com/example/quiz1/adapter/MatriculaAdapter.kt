@@ -29,7 +29,7 @@ class MatriculaAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatriculaViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_matricula, parent, false)
+            .inflate(R.layout.item_card_default, parent, false)
         return MatriculaViewHolder(view)
     }
 
@@ -102,24 +102,27 @@ class MatriculaAdapter(
     }
 
     inner class MatriculaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvIdMatricula: TextView = itemView.findViewById(R.id.tvIdMatricula)
-        private val tvCedulaAlumno: TextView = itemView.findViewById(R.id.tvCedulaAlumno)
-        private val tvIdGrupo: TextView = itemView.findViewById(R.id.tvIdGrupo)
-        private val tvNota: TextView = itemView.findViewById(R.id.tvNota)
+        private val line1: TextView = itemView.findViewById(R.id.tvLine1)
+        private val line2: TextView = itemView.findViewById(R.id.tvLine2)
+        private val line3: TextView = itemView.findViewById(R.id.tvLine3)
+        private val line4: TextView = itemView.findViewById(R.id.tvLine4)
 
         fun bind(matricula: Matricula) {
             Log.d(
                 "MatriculaAdapter",
                 "Bind matricula ID: ${matricula.idMatricula}, Alumno: ${matricula.cedulaAlumno}"
             )
-            tvIdMatricula.text = "ID: ${matricula.idMatricula}"
-            tvCedulaAlumno.text = "Alumno: ${matricula.cedulaAlumno}"
-            tvIdGrupo.text = "Grupo: ${matricula.idGrupo}"
-            tvNota.text = if (matricula.nota != null) {
+            line1.text = "ID: ${matricula.idMatricula}"
+            line2.text = "Alumno: ${matricula.cedulaAlumno}"
+            line3.text = "Grupo: ${matricula.idGrupo}"
+            line4.text = if (matricula.nota != null) {
                 "Nota: %.2f".format(Locale.US, matricula.nota)
             } else {
                 "Nota: Sin nota"
             }
+
+            itemView.findViewById<TextView>(R.id.tvLine5)?.visibility = View.GONE
+            itemView.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
 
             itemView.setOnClickListener {
                 onItemClick(matricula)

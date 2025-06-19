@@ -21,7 +21,7 @@ class CursosAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CursoViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_curso, parent, false)
+            .inflate(R.layout.item_card_default, parent, false)
         return CursoViewHolder(view)
     }
 
@@ -67,18 +67,20 @@ class CursosAdapter(
     }
 
     inner class CursoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvIdCurso: TextView = itemView.findViewById(R.id.tvIdCurso)
-        private val tvCodigoCurso: TextView = itemView.findViewById(R.id.tvCodigoCurso)
-        private val tvNombreCurso: TextView = itemView.findViewById(R.id.tvNombreCurso)
-        private val tvCreditosCurso: TextView = itemView.findViewById(R.id.tvCreditosCurso)
-        private val tvHorasSemanales: TextView = itemView.findViewById(R.id.tvHorasSemanales)
+        private val line1: TextView = itemView.findViewById(R.id.tvLine1)
+        private val line2: TextView = itemView.findViewById(R.id.tvLine2)
+        private val line3: TextView = itemView.findViewById(R.id.tvLine3)
+        private val line4: TextView = itemView.findViewById(R.id.tvLine4)
+        private val line5: TextView = itemView.findViewById(R.id.tvLine5)
 
         fun bind(curso: Curso) {
-            tvIdCurso.text = "ID: ${curso.idCurso}"
-            tvCodigoCurso.text = "Código: ${curso.codigo}"
-            tvNombreCurso.text = "Nombre: ${curso.nombre}"
-            tvCreditosCurso.text = "Créditos: ${curso.creditos}"
-            tvHorasSemanales.text = "Horas semanales: ${curso.horasSemanales}"
+            line1.text = "ID: ${curso.idCurso}"
+            line2.text = "Código: ${curso.codigo}"
+            line3.text = "Nombre: ${curso.nombre}"
+            line4.text = "Créditos: ${curso.creditos}"
+            line5.text = "Horas semanales: ${curso.horasSemanales}"
+
+            itemView.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
             itemView.setOnClickListener { onItemClick(curso) }
         }
     }
