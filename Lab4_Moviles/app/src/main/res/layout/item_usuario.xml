@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:elevation="4dp"
-    android:padding="12dp">
+    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start">
+        android:gravity="start"
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/tvCedulaUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:ellipsize="none"
             android:textColor="?attr/colorOnSurface"
             android:paddingBottom="4dp" />
 
@@ -28,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textColor="?attr/colorOnSurface"
             android:paddingBottom="2dp" />
 
@@ -36,6 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="none"
+            android:gravity="start"
+            android:lineSpacingExtra="2dp"
             android:textColor="?attr/colorOnSurface" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

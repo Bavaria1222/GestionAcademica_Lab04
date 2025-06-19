@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="4dp">
+    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
         android:orientation="vertical"
@@ -12,11 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView android:id="@+id/tvId"            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvAnio"          android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvNumero"       android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvFechaInicio"  android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <TextView android:id="@+id/tvFechaFin"     android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/tvId"            android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
+        <TextView android:id="@+id/tvAnio"          android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
+        <TextView android:id="@+id/tvNumero"       android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
+        <TextView android:id="@+id/tvFechaInicio"  android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
+        <TextView android:id="@+id/tvFechaFin"     android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="none" android:gravity="start" android:lineSpacingExtra="2dp"/>
 
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
