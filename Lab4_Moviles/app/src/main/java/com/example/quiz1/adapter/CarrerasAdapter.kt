@@ -12,19 +12,19 @@ import com.example.quiz1.R
 class CarrerasAdapter(private val items: List<Carrera>) :
     RecyclerView.Adapter<CarrerasAdapter.ViewHolder>() {
 
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        private val line1: TextView = v.findViewById(R.id.tvLine1)
-        private val line2: TextView = v.findViewById(R.id.tvLine2)
-        private val line3: TextView = v.findViewById(R.id.tvLine3)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val line1: TextView = itemView.findViewById(R.id.tvLine1)
+        private val line2: TextView = itemView.findViewById(R.id.tvLine2)
+        private val line3: TextView = itemView.findViewById(R.id.tvLine3)
 
         fun bind(carrera: Carrera) {
             line1.text = "Nombre: ${carrera.nombre}"
             line2.text = "Código: ${carrera.codigo}"
             line3.text = "Título: ${carrera.titulo}"
 
-            v.findViewById<TextView>(R.id.tvLine4)?.visibility = View.GONE
-            v.findViewById<TextView>(R.id.tvLine5)?.visibility = View.GONE
-            v.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
+            itemView.findViewById<TextView>(R.id.tvLine4)?.visibility = View.GONE
+            itemView.findViewById<TextView>(R.id.tvLine5)?.visibility = View.GONE
+            itemView.findViewById<TextView>(R.id.tvLine6)?.visibility = View.GONE
         }
     }
 
