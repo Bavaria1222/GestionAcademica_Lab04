@@ -65,6 +65,8 @@ class MenuActivity : AppCompatActivity() {
         }
 
         items.addAll(obtenerItemsPorRol(rol))
+        // Todos los roles pueden acceder a la sección de ayuda
+        items.add("Ayuda" to AyudaFragment())
 
         val recyclerView = findViewById<RecyclerView>(R.id.menuRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)

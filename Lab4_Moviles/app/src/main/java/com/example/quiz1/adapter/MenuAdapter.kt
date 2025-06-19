@@ -47,6 +47,7 @@ class MenuAdapter(
             "plan de estudio" -> holder.icono.setImageResource(R.drawable.ic_school)
             "historial" -> holder.icono.setImageResource(R.drawable.ic_menu_book)
             "registro notas" -> holder.icono.setImageResource(R.drawable.ic_menu_book)
+            "ayuda" -> holder.icono.setImageResource(R.drawable.ic_menu_book)
             else -> holder.icono.setImageResource(R.drawable.ic_school)
         }
     }
