@@ -10,5 +10,25 @@
     <string name="onboarding_welcome">Bienvenido a Gestión Académica</string>
     <string name="onboarding_instructions">Usa el menú lateral para acceder a cada sección y gestionar tus datos académicos.</string>
     <string name="onboarding_continue">Continuar</string>
-    <string name="help_text">Para más información sobre el uso de la app, abre el menú y elige la sección correspondiente. Si necesitas asistencia escribe a soporte@example.com.</string>
+    <string name="help_title">Guía de funcionalidades</string>
+    <string name="help_cursos_title">1. Mantenimiento de cursos</string>
+    <string name="help_cursos_desc">Permite buscar por nombre, código o carrera para administrar la oferta de cursos.</string>
+    <string name="help_carreras_title">2. Mantenimiento de carreras</string>
+    <string name="help_carreras_desc">Edite el nombre y código de cada carrera y gestione los cursos asociados.</string>
+    <string name="help_profesores_title">3. Mantenimiento de profesores</string>
+    <string name="help_profesores_desc">Busque docentes por nombre o cédula para modificar su información.</string>
+    <string name="help_alumnos_title">4. Mantenimiento de alumnos</string>
+    <string name="help_alumnos_desc">Busque estudiantes por nombre, cédula o carrera y consulte su historial académico.</string>
+    <string name="help_ciclos_title">5. Mantenimiento de ciclos</string>
+    <string name="help_ciclos_desc">Localice ciclos por año y marque cuál se encuentra activo.</string>
+    <string name="help_oferta_title">6. Oferta académica</string>
+    <string name="help_oferta_desc">Consulte los cursos disponibles por carrera y ciclo, además de gestionar los grupos.</string>
+    <string name="help_matricula_title">7. Matrícula de estudiantes</string>
+    <string name="help_matricula_desc">Revise o modifique la matrícula en el ciclo activo y cambie de ciclo si es necesario.</string>
+    <string name="help_notas_title">8. Registro de notas</string>
+    <string name="help_notas_desc">Los profesores visualizan sus grupos asignados y registran o ajustan las calificaciones.</string>
+    <string name="help_historial_title">9. Consulta de historial</string>
+    <string name="help_historial_desc">Los alumnos revisan sus cursos aprobados y el detalle de cada matrícula.</string>
+    <string name="help_seguridad_title">10. Seguridad</string>
+    <string name="help_seguridad_desc">Los administradores gestionan usuarios con permisos de administración y matrícula.</string>
 </resources>
