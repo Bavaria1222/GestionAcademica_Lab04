@@ -14,17 +14,23 @@
         android:theme="@style/Theme.Quiz1"
         android:networkSecurityConfig="@xml/network_security_config">
 
-        <!-- Pantalla de Login, lanzador de la app -->
+        <!-- Pantalla de bienvenida -->
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.OnboardingActivity"
             android:exported="true"
-            android:label="@string/title_activity_login"
             android:theme="@style/Theme.Quiz1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Pantalla de Login -->
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.Quiz1" />
 
         <!-- Menú principal -->
         <activity

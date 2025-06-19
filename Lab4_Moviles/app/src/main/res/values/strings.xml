@@ -7,4 +7,8 @@
     <string name="drawer_open">Abrir menú</string>
     <string name="drawer_close">Cerrar menú</string>
     <string name="menu_item_icon_desc">Ícono de opción de menú</string>
+    <string name="onboarding_welcome">Bienvenido a Gestión Académica</string>
+    <string name="onboarding_instructions">Usa el menú lateral para acceder a cada sección y gestionar tus datos académicos.</string>
+    <string name="onboarding_continue">Continuar</string>
+    <string name="help_text">Para más información sobre el uso de la app, abre el menú y elige la sección correspondiente. Si necesitas asistencia escribe a soporte@example.com.</string>
 </resources>
